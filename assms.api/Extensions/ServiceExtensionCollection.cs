@@ -73,7 +73,7 @@ public static class ServiceExtensionCollection
     {
         // Db
         services.AddDbContext<ApplicationDbContext>(options =>
-            options.UseNpgsql(ReturnEnv.Env("DATABASE_CONNECTION_STRING")));
+            options.UseNpgsql(ReturnEnv.Env("DATABASE_CONNECTION_STRING_DEV")));
     
         // Redis
         services.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer.Connect(ReturnEnv.Env("REDIS_CONNECTION_STRING")!));
