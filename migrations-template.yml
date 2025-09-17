@@ -1,0 +1,37 @@
+on:
+  workflow_call:
+    secrets:
+      PROD_DB:
+        required: true
+      DEV_DB:
+        required: true
+
+jobs:
+  run-migrations:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET 8.0.x
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Install dotnet-ef 8.0.11
+        run: dotnet tool install --global dotnet-ef --version 8.0.11
+
+      - name: Install Dependencies
+        run: dotnet restore
+
+      - name: Check targeted database
+        run: |
+          if [ "${GITHUB_EVENT_NAME}" = "pull_request" ]; then
+            echo "Run migrations against Develop Database"
+          else
+            echo "Run migrations against Production Database"
+          fi
+
+      - name: Apply Migrations
+        env:
+          DATABASE_CONNECTION_STRING: "${{ github.event_name == 'pull_request' && secrets.DEV_DB || secrets.PROD_DB }}"
+        run: dotnet ef database update -p rostering.api -v

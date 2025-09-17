@@ -1,0 +1,49 @@
+name: ASSMS Pipeline
+
+on:
+  push:
+    branches:
+      - "master"
+  pull_request:
+    branches:
+      - "*"
+
+jobs:
+  Run-Migrations:
+    uses: "S04tQlick/assms.backend/.github/workflows/migrations-template.yml@master"
+    secrets:
+      PROD_DB: ${{ secrets.DATABASE_CONNECTION_STRING }}
+      DEV_DB: ${{ secrets.DATABASE_CONNECTION_STRING_DEV }}
+
+  Run-Tests:
+    needs: Run-Migrations
+    uses: "S04tQlick/assms.backend/.github/workflows/tests-template.yml@master"
+    secrets:
+      DATABASE_CONNECTION_STRING: ${{ secrets.DATABASE_CONNECTION_STRING }}
+    with:
+      dotnet-version: '8.0.x'
+
+#  Deploy:
+#    needs: Run-Tests
+#    if: github.ref == 'refs/heads/master'
+#    uses: "S04tQlick/assms.backend/.github/workflows/deploy-template.yml@master"
+#    secrets:
+#      HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+#      HEROKU_EMAIL: ${{ secrets.HEROKU_EMAIL }}
+#      DATABASE_CONNECTION_STRING: ${{ secrets.DATABASE_CONNECTION_STRING }}
+#    with:
+#      heroku_app_name: "assms-backend-prod"
+#      branch: ${{ github.ref_name }}
+#      contributor: ${{ github.actor }}
+#      commit_message: ${{ github.event.head_commit.message }}
+
+#  Notify-Discord:
+#    uses: "S04tQlick/assms.backend/.github/workflows/discord-template.yml@master"
+#    needs: Deploy
+#    with:
+#      project: "assms.backend"
+#      branch: "${{ github.ref_name }}"
+#      commit_message: "${{ github.event.head_commit.message }}"
+#      contributor: "${{ github.actor }}"
+#    secrets:
+#      DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}

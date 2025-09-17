@@ -1,0 +1,52 @@
+name: Deploy to Heroku Template
+
+on:
+  workflow_call:
+    secrets:
+      HEROKU_API_KEY:
+        required: true
+      HEROKU_EMAIL:
+        required: true
+      DATABASE_CONNECTION_STRING:
+        required: true
+    inputs:
+      heroku_app_name:
+        required: true
+        type: string
+      branch:
+        required: true
+        type: string
+      contributor:
+        required: true
+        type: string
+      commit_message:
+        required: true
+        type: string
+
+jobs:
+  Deploy:
+    name: Build & Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install Heroku CLI
+        run: |
+          curl https://cli-assets.heroku.com/install.sh | sh
+
+      - name: Deploy to Heroku
+        uses: akhileshns/heroku-deploy@v3.14.15
+        with:
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_app_name: ${{ inputs.heroku_app_name }}
+          heroku_email: ${{ secrets.HEROKU_EMAIL }}
+        env:
+          HD_DATABASE_CONNECTION_STRING: ${{ secrets.DATABASE_CONNECTION_STRING }}
+
+      - name: Log Deployment Info
+        run: |
+          echo "Deployed branch: ${{ inputs.branch }}"
+          echo "Commit message: ${{ inputs.commit_message }}"
+          echo "Contributor: ${{ inputs.contributor }}"

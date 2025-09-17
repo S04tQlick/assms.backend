@@ -1,0 +1,46 @@
+on:
+  workflow_call:
+    inputs:
+      dotnet-version:
+        required: false
+        type: string
+        default: '8.0.x'
+    secrets:
+      DATABASE_CONNECTION_STRING:
+        required: true
+
+jobs:
+  Tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/cache@v4
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ inputs.dotnet-version }}
+
+      - run: dotnet restore
+      - run: dotnet build --configuration Release --no-restore
+
+      - name: Run Tests with DB Connection
+        run: dotnet test /p:CollectCoverage=true /p:CoverletOutput=coverage/ /p:CoverletOutputFormat=lcov
+        env:
+          DATABASE_CONNECTION_STRING: ${{ secrets.DATABASE_CONNECTION_STRING }}
+
+      - run: dotnet tool install --global dotnet-reportgenerator-globaltool
+      - run: echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
+
+      - run: reportgenerator -reports:"**/coverage.info" -targetdir:coverage_html
+
+      - name: Upload HTML coverage
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-html
+          path: coverage_html/

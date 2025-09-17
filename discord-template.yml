@@ -1,0 +1,35 @@
+name: Notify Discord Template
+
+on:
+  workflow_call:
+    secrets:
+      DISCORD_WEBHOOK:
+        required: true
+    inputs:
+      project:
+        required: true
+        type: string
+      branch:
+        required: true
+        type: string
+      commit_message:
+        required: true
+        type: string
+      contributor:
+        required: true
+        type: string
+
+jobs:
+  Notify-Discord-Channel:
+    name: Notify Discord Channel
+    runs-on: ubuntu-latest
+    steps:
+      - name: Discord Webhook Action
+        uses: tsickert/discord-webhook@v7.0.0
+        with:
+          webhook-url: ${{ secrets.DISCORD_WEBHOOK }}
+          content: |
+            Project: ${{ inputs.project }}
+            Branch: ${{ inputs.branch }}
+            Commit: ${{ inputs.commit_message }}
+            Contributor: ${{ inputs.contributor }}
