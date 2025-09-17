@@ -1,0 +1,16 @@
+/assms.api/assms.api.csproj
+bin/
+obj/
+/packages/
+riderModule.iml
+/_ReSharper.Caches/
+
+ssrs.backend.sln.DotSettings.user
+**/coverage
+
+**/.env
+**/postgres_data
+
+.idea
+.vscode
+.vs
