@@ -3,6 +3,7 @@ using Asp.Versioning;
 using assms.api.DAL.DatabaseContext;
 using assms.api.Helpers;
 using assms.entities.Config;
+using assms.entities.DTOs.EmailSettingsDtos;
 using assms.entities.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -87,7 +88,7 @@ public static class ServiceExtensionCollection
         
         
         // EMAIL
-        services.Configure<EmailSettings>(options =>
+        services.Configure<EmailSettingsDto>(options =>
         {
             options.SmtpServer = ReturnEnv.Env("EMAIL_SMTP_SERVER");
             options.Port = int.Parse(ReturnEnv.Env("EMAIL_SMTP_PORT"));

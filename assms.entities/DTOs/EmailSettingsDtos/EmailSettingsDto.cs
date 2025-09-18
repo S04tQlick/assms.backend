@@ -1,6 +1,6 @@
-namespace assms.entities.Models;
+namespace assms.entities.DTOs.EmailSettingsDtos;
 
-public abstract class EmailSettings
+public abstract class EmailSettingsDto
 {
     public required string SmtpServer { get; set; }
     public int Port { get; set; }
