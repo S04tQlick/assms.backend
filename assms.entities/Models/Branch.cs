@@ -5,7 +5,7 @@ public class Branch : GeoBaseModel
     public Guid InstitutionId { get; set; }
     
     [ForeignKey(nameof(InstitutionId))]
-    public Institution? Institution { get; set; }
+    public InstitutionModel? Institution { get; set; }
 
     public required string Name { get; set; }
     public required string Address { get; set; }

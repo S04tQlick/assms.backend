@@ -3,7 +3,6 @@ using Asp.Versioning;
 using assms.api.DAL.DatabaseContext;
 using assms.api.Helpers;
 using assms.entities.Config;
-using assms.entities.DTOs.EmailSettingsDtos;
 using assms.entities.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -82,13 +81,10 @@ public static class ServiceExtensionCollection
         
         services.AddSignalR()
             .AddStackExchangeRedis(ReturnEnv.Env("REDIS_CONNECTION_STRING") ?? throw new Exception("REDIS_CONNECTION_STRING Missing"), options =>
-            {
-                options.Configuration.ChannelPrefix = "ASMS";
-            });
-        
+                options.Configuration.ChannelPrefix = new RedisChannel( "ASMS", RedisChannel.PatternMode.Literal));
         
         // EMAIL
-        services.Configure<EmailSettingsDto>(options =>
+        services.Configure<EmailSettings>(options =>
         {
             options.SmtpServer = ReturnEnv.Env("EMAIL_SMTP_SERVER");
             options.Port = int.Parse(ReturnEnv.Env("EMAIL_SMTP_PORT"));
