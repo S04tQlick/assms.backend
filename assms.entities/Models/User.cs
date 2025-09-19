@@ -7,7 +7,7 @@ public class User : BaseModel
     public Guid InstitutionId { get; set; }
     
     [ForeignKey(nameof(InstitutionId))]
-    public Institution? Institution { get; set; }
+    public InstitutionModel? Institution { get; set; }
     
     public Guid BranchId { get; set; }
     [ForeignKey(nameof(BranchId))]

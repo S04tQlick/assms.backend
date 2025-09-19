@@ -6,7 +6,7 @@ public abstract class BaseModel
     public Guid Id { get; init; }
 
     [Column("CreatedAt")]
-    public DateTime CreatedAt { get; init; }
+    public DateTime CreatedAt { get; set; }
 
     [Column("UpdatedAt")]
     public DateTime UpdatedAt { get; set; }

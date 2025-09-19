@@ -5,7 +5,7 @@ public class Notification : BaseModel
     // Institution this notification belongs to
     public Guid InstitutionId { get; set; }
     [ForeignKey(nameof(InstitutionId))]
-    public Institution? Institution { get; set; }
+    public InstitutionModel? Institution { get; set; }
 
     // Notification content
     public string? Message { get; set; } = string.Empty;

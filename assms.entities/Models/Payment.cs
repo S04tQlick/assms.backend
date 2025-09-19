@@ -5,7 +5,7 @@ public class Payment : BaseModel
     public Guid InstitutionId { get; set; }
 
     [ForeignKey(nameof(InstitutionId))] 
-    public Institution? Institution { get; set; } 
+    public InstitutionModel? Institution { get; set; } 
 
     public Guid SubscriptionId { get; set; }
     [ForeignKey(nameof(SubscriptionId))]
