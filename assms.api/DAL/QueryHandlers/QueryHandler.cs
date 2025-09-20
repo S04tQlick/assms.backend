@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using assms.api.DAL.DatabaseContext;
 using assms.entities.Models;
 using Microsoft.EntityFrameworkCore;
@@ -21,23 +22,27 @@ public class QueryHandler<T>(ApplicationDbContext ctx) : IQueryHandler<T> where 
     
     public async Task<int> CreateAsync(T entity)
     {
-        if (ctx.Set<T>().Any()) throw new Exception("Entity has been already created");
         await ctx.AddAsync(entity);
         return await ctx.SaveChangesAsync();
     }
 
-    public Task<int> UpdateAsync(T entity)
+    public async Task<int> UpdateAsync(T entity)
     {
-        ctx.Set<T>().Update(entity);
-        return ctx.SaveChangesAsync();
+       ctx.Set<T>().Update(entity);
+        return await ctx.SaveChangesAsync();
     }
 
-    public Task<int> DeleteAsync(Guid id)
+    public async Task<int> DeleteAsync(Guid id)
     {
        var entity = ctx.Set<T>().Find(id);
-       if (entity == null) return Task.FromResult(0);
+       if (entity == null) return await Task.FromResult(0);
 
        ctx.Set<T>().Remove(entity);
-       return ctx.SaveChangesAsync();
+       return await ctx.SaveChangesAsync();
+    }
+
+    public async Task<bool> ExistsAsync(Expression<Func<T, bool>> predicate)
+    {
+        return await ctx.Set<T>().AnyAsync(predicate);
     }
 }

@@ -1,6 +1,8 @@
+using assms.entities.Models;
+
 namespace assms.entities.Request.InstitutionsRequest;
 
-public class InstitutionRequest
+public class InstitutionRequest : GeoBaseModel
 {
     public required string Name { get; init; }
     public required string LogoUrl { get; init; }
