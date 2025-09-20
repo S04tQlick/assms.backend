@@ -1,7 +1,11 @@
 using System.Text;
 using Asp.Versioning;
 using assms.api.DAL.DatabaseContext;
+using assms.api.DAL.QueryHandlers;
+using assms.api.DAL.Repositories.InstitutionRepository;
+using assms.api.DAL.Services.InstitutionService;
 using assms.api.Helpers;
+using assms.api.Middlewares;
 using assms.entities.Config;
 using assms.entities.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -24,6 +28,15 @@ public static class ServiceExtensionCollection
         builder.Services.AddControllers();
         builder.Services.ConfigureApiVersioning();
         builder.Services.AddDbContext();
+        builder.Services.AddScoped(typeof(IQueryHandler<>), typeof(QueryHandler<>));
+       
+        //Institution  repository and services
+        builder.Services.AddScoped<IInstitutionService, InstitutionService>();
+        builder.Services.AddScoped<IInstitutionRepository, InstitutionRepository>(); 
+        
+        
+        
+        builder.Services.AddTransient<GlobalExceptionHandler>();
 
 
         

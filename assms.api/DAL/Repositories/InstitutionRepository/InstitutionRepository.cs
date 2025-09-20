@@ -3,6 +3,7 @@ using assms.api.DAL.QueryHandlers;
 using assms.entities.Models;
 using assms.entities.Request.InstitutionsRequest;
 using assms.entities.Response.InstitutionsResponse;
+using Microsoft.EntityFrameworkCore;
 
 namespace assms.api.DAL.Repositories.InstitutionRepository;
 
@@ -13,7 +14,7 @@ public class InstitutionRepository(IQueryHandler<InstitutionModel> queryHandler)
         var response = await queryHandler.GetAllByDateAsync(date);
         return response.Select(x => new InstitutionRowModel
         {
-            Id = x.Id,
+            //Id = x.Id,
             Name = x.Name,
             Country = x.Country,
             Region = x.Region,
@@ -25,10 +26,19 @@ public class InstitutionRepository(IQueryHandler<InstitutionModel> queryHandler)
         });
     }
 
-    public async Task<int> CreateInstitutionAsync(InstitutionRequest request) => await queryHandler.CreateAsync(
-        new InstitutionModel
+    public async Task<int> CreateInstitutionAsync(InstitutionRequest request)
+    {
+        var exists = await queryHandler.ExistsAsync(e =>
+            EF.Functions.ILike(e.Name, request.Name) &&
+            EF.Functions.ILike(e.City, request.City) &&
+            EF.Functions.ILike(e.Region, request.Region) &&
+            EF.Functions.ILike(e.Country, request.Country));
+       
+        if (exists)
+            throw new Exception("Institution already exists.");
+
+        return await queryHandler.CreateAsync(new InstitutionModel
         {
-            Id = Guid.NewGuid(),
             Name = request.Name,
             Country = request.Country,
             Region = request.Region,
@@ -37,10 +47,14 @@ public class InstitutionRepository(IQueryHandler<InstitutionModel> queryHandler)
             LogoUrl = request.LogoUrl,
             CreatedAt = DateTime.UtcNow,
             UpdatedAt = DateTime.UtcNow,
+            Latitude = request.Latitude,
+            Longitude = request.Longitude,
+            SubscriptionExpiresAt = DateTime.UtcNow.AddYears(1),
             IsActive = true,
-            SubscriptionExpiresAt = DateTime.UtcNow.AddYears(1)
-
         });
+    }
+
+
 
 
 
@@ -93,5 +107,16 @@ public class InstitutionRepository(IQueryHandler<InstitutionModel> queryHandler)
 
     private async Task<InstitutionModel?> GetRowDataAsync(Guid rowId) =>
         await queryHandler.GetByIdAsync(rowId);
+
+
+    // private async Task<InstitutionModel?> GetRowDataAsync(string name, string city, string country)
+    // {
+    //     return await ctx.Institutions
+    //         .AsNoTracking() // we just want to check, not track entity
+    //         .FirstOrDefaultAsync(i =>
+    //             i.Name.ToLower() == name.ToLower() &&
+    //             i.City.ToLower() == city.ToLower() &&
+    //             i.Country.ToLower() == country.ToLower());
+    // }
 
 }
