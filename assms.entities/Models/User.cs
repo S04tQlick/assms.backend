@@ -11,7 +11,7 @@ public class User : BaseModel
     
     public Guid BranchId { get; set; }
     [ForeignKey(nameof(BranchId))]
-    public Branch? Branch { get; set; }
+    public BranchModel? Branch { get; set; }
 
     public required string Email { get; set; }
     public string? NormalizedEmail { get; set; }

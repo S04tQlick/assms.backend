@@ -7,38 +7,62 @@ namespace assms.api.DAL.QueryHandlers;
 
 public class QueryHandler<T>(ApplicationDbContext ctx) : IQueryHandler<T> where T : BaseModel
 {
-    public async Task<IEnumerable<T>> GetAllByDateAsync(DateTime date)
+    public async Task<IEnumerable<T>> GetAllAsync(params Expression<Func<T, object>>[]? includes)
     {
-        var statUtc = DateTime.SpecifyKind(date, DateTimeKind.Utc);
-        return await ctx.Set<T>()
-            .Where(x => x.CreatedAt >= statUtc && x.CreatedAt <= statUtc.AddDays(1))
-            .ToListAsync();
+        IQueryable<T> query = ctx.Set<T>();
+
+        if (includes == null) return await query.ToListAsync();
+        query = includes.Aggregate(query, (current, include) => current.Include(include));
+
+        return await query.ToListAsync();
     }
 
-    public async Task<T?> GetByIdAsync(Guid id)
+    public async Task<IEnumerable<T>> GetAllByDateAsync(DateTime date, params Expression<Func<T, object>>[]? includes)
     {
-       return await ctx.Set<T>().FindAsync(id);
+        IQueryable<T> query = ctx.Set<T>();
+
+        if (includes != null)
+            query = includes.Aggregate(query, (current, include) => current.Include(include));
+        
+        var utcDate = DateTime.SpecifyKind(date.Date, DateTimeKind.Utc);
+
+        return await query.Where(e => e.CreatedAt.Date == utcDate).ToListAsync();
     }
-    
+
+    public async Task<T?> GetByIdAsync(Guid id, params Expression<Func<T, object>>[]? includes)
+    {
+        IQueryable<T> query = ctx.Set<T>();
+
+        if (includes != null)
+        {
+            foreach (var include in includes)
+            {
+                query = query.Include(include);
+            }
+        }
+
+        return await query.FirstOrDefaultAsync(e => e.Id == id);
+    }
+
     public async Task<int> CreateAsync(T entity)
     {
-        await ctx.AddAsync(entity);
+        ctx.Set<T>().Add(entity);
         return await ctx.SaveChangesAsync();
     }
 
     public async Task<int> UpdateAsync(T entity)
     {
-       ctx.Set<T>().Update(entity);
+        ctx.Set<T>().Update(entity);
         return await ctx.SaveChangesAsync();
     }
 
     public async Task<int> DeleteAsync(Guid id)
     {
-       var entity = ctx.Set<T>().Find(id);
-       if (entity == null) return await Task.FromResult(0);
+        var entity = await ctx.Set<T>().FindAsync(id);
+        if (entity == null) return 0;
 
-       ctx.Set<T>().Remove(entity);
-       return await ctx.SaveChangesAsync();
+        ctx.Set<T>().Remove(entity);
+        return await ctx.SaveChangesAsync();
     }
 
     public async Task<bool> ExistsAsync(Expression<Func<T, bool>> predicate)

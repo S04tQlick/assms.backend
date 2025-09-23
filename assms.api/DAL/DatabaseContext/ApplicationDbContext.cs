@@ -6,7 +6,7 @@ namespace assms.api.DAL.DatabaseContext;
 public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : DbContext(options)
 {
     public DbSet<InstitutionModel> Institutions { get; set; }
-    public DbSet<Branch> Branches { get; set; }
+    public DbSet<BranchModel> Branches { get; set; }
     public DbSet<User> Users { get; set; }
     public DbSet<Role> Roles { get; set; }
     public DbSet<UserRole> UserRoles { get; set; }

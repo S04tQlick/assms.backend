@@ -217,7 +217,7 @@ namespace assms.api.DAL.Data.Migrations
                     b.ToTable("AssetTypes");
                 });
 
-            modelBuilder.Entity("assms.entities.Models.Branch", b =>
+            modelBuilder.Entity("assms.entities.Models.BranchModel", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -299,17 +299,9 @@ namespace assms.api.DAL.Data.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("boolean");
 
-                    b.Property<double>("Latitude")
-                        .HasColumnType("double precision")
-                        .HasColumnName("Latitude");
-
                     b.Property<string>("LogoUrl")
                         .IsRequired()
                         .HasColumnType("text");
-
-                    b.Property<double>("Longitude")
-                        .HasColumnType("double precision")
-                        .HasColumnName("Longitude");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -818,7 +810,7 @@ namespace assms.api.DAL.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("assms.entities.Models.Branch", "Branch")
+                    b.HasOne("assms.entities.Models.BranchModel", "Branch")
                         .WithMany("Assets")
                         .HasForeignKey("BranchId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -869,7 +861,7 @@ namespace assms.api.DAL.Data.Migrations
                     b.Navigation("Asset");
                 });
 
-            modelBuilder.Entity("assms.entities.Models.Branch", b =>
+            modelBuilder.Entity("assms.entities.Models.BranchModel", b =>
                 {
                     b.HasOne("assms.entities.Models.InstitutionModel", "Institution")
                         .WithMany("Branches")
@@ -964,7 +956,7 @@ namespace assms.api.DAL.Data.Migrations
 
             modelBuilder.Entity("assms.entities.Models.User", b =>
                 {
-                    b.HasOne("assms.entities.Models.Branch", "Branch")
+                    b.HasOne("assms.entities.Models.BranchModel", "Branch")
                         .WithMany("Users")
                         .HasForeignKey("BranchId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1029,7 +1021,7 @@ namespace assms.api.DAL.Data.Migrations
                     b.Navigation("Categories");
                 });
 
-            modelBuilder.Entity("assms.entities.Models.Branch", b =>
+            modelBuilder.Entity("assms.entities.Models.BranchModel", b =>
                 {
                     b.Navigation("Assets");
 

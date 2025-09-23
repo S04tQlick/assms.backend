@@ -2,8 +2,9 @@ using assms.entities.Models;
 
 namespace assms.entities.Response.InstitutionsResponse;
 
-public class InstitutionRowModel : BaseModel
+public class InstitutionRowModel
 {
+    public Guid InstitutionId { get; set; }
     public required string Name { get; set; }
     public required string LogoUrl { get; set; }
     public required string Country { get; set; }

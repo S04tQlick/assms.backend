@@ -5,7 +5,7 @@ namespace assms.test.Helpers;
 
 public abstract class InstitionOperations(ApplicationFixture fixture)
 {
-    protected async Task<InstitutionActionResponse<IEnumerable<InstitutionRowModel>>?> GetAttendanceByDateAsync(string date)
+    protected async Task<InstitutionActionResponse<IEnumerable<InstitutionRowModel>>?> GetInstitutionByDateAsync(string date)
     {
         var response = await fixture.Client.GetAsync(ApiPath.SetInstitutionControllerRoute(date));
         response.EnsureSuccessStatusCode();

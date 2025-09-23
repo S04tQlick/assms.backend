@@ -1,6 +1,6 @@
 namespace assms.entities.Models;
 
-public class Branch : GeoBaseModel
+public class BranchModel : GeoBaseModel
 {
     public Guid InstitutionId { get; set; }
     

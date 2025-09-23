@@ -1,12 +1,14 @@
 using System.Linq.Expressions;
 using assms.entities.Models;
+using assms.entities.Response.InstitutionsResponse;
 
 namespace assms.api.DAL.QueryHandlers;
 
 public interface IQueryHandler<T> where T : BaseModel
 {
-    Task<IEnumerable<T>> GetAllByDateAsync(DateTime date);
-    Task<T?> GetByIdAsync(Guid id);
+    Task<IEnumerable<T>> GetAllAsync(params Expression<Func<T, object>>[] includeProperties);
+    Task<IEnumerable<T>> GetAllByDateAsync(DateTime date, params Expression<Func<T, object>>[] includeProperties);
+    Task<T?> GetByIdAsync(Guid id, params Expression<Func<T, object>>[] includeProperties);
     Task<int> CreateAsync(T entity);
     Task<int> UpdateAsync(T entity);
     Task<int> DeleteAsync(Guid id);

@@ -5,5 +5,6 @@ public enum RecordType
     Save,
     Edit,
     Delete,
+    GetAll,
     GetAllByDate,
 }

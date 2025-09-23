@@ -8,7 +8,7 @@ public class Asset : BaseModel
     public InstitutionModel? Institution { get; set; }
     public Guid BranchId { get; set; }
     [ForeignKey(nameof(BranchId))]
-    public Branch? Branch { get; set; }
+    public BranchModel? Branch { get; set; }
 
     public required string AssetName { get; set; }
     public Guid AssetTypeId { get; set; }
