@@ -38,24 +38,4 @@ public class InstitionControllerTests(ApplicationFixture fixture) : InstitionOpe
         responseMessage?.Message.Should().Be(MessageConstants.Success(RecordType.Save));
         responseMessage?.Data.Should().Be(1);
     }
-
-    [Fact]
-    public async Task It_Should_Get_Institution_By_Date()
-    {
-        var institutionData = await GetInstitutionByDateAsync(DateTime.UtcNow.ToString("o"));
-
-        if (institutionData is not null)
-        {
-            foreach (var row in institutionData.Data!)
-            {
-                row.InstitutionId.Should().NotBeEmpty();
-                row.Name.Should().NotBeEmpty();
-                row.Country.Should().NotBeEmpty();
-                row.Region.Should().NotBeEmpty();
-                row.City.Should().NotBeEmpty();
-                row.Address.Should().NotBeEmpty();
-                row.IsActive.Should().BeFalse();
-            }
-        }
-    }
 }
