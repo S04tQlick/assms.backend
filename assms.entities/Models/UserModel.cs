@@ -1,6 +1,7 @@
 namespace assms.entities.Models;
 
-public class User : BaseModel
+[Table("Users")]
+public class UserModel : BaseModel
 {
     public required string FirstName { get; set; }
     public required string LastName { get; set; }
@@ -20,9 +21,6 @@ public class User : BaseModel
     public required string Phone { get; set; }
     public bool IsEmailConfirmed { get; set; }
     public bool IsPhoneConfirmed { get; set; }
-    public Guid RoleId { get; set; }
-    [ForeignKey(nameof(RoleId))]
-    public Role? Role { get; set; }
     public bool IsActive { get; set; } = true;
     public DateTime? LastLogin { get; set; }
 

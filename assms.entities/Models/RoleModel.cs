@@ -1,6 +1,7 @@
 namespace assms.entities.Models;
 
-public class Role : BaseModel
+[Table("Roles")]
+public class RoleModel : BaseModel
 {
     public required string RoleName { get; set; }
 

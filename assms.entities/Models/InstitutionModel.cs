@@ -1,5 +1,6 @@
 namespace assms.entities.Models;
 
+[Table("Institutions")]
 public class InstitutionModel : BaseModel
 {
     public required string Name { get; set; }
@@ -12,6 +13,6 @@ public class InstitutionModel : BaseModel
     public DateTime? SubscriptionExpiresAt { get; set; }
 
     public ICollection<BranchModel>? Branches { get; init; }
-    public ICollection<User>? Users { get; init; }
-    public ICollection<Asset>? Assets { get; init; }
+    public ICollection<UserModel>? Users { get; init; }
+    public ICollection<AssetModel>? Assets { get; init; }
 }

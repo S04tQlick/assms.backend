@@ -1,16 +1,18 @@
-namespace assms.test.Helpers;
+using Bogus;
 
-public  class FakeDataHelper
+namespace assms.api.Helpers;
+
+public class FakeDataHelper
 {
     private static readonly Faker Faker = new();
-    
+
     // ✅ Random string
     public static string CompanyName() => Faker.Company.CompanyName();
 
     // ✅ Random string
     public static string RandomString(int length = 8) =>
         Faker.Random.String(length);
-   
+
     // ✅ Person data
     public static string FullName() => Faker.Name.FullName();
     public static string FirstName() => Faker.Name.FirstName();
@@ -25,12 +27,14 @@ public  class FakeDataHelper
     public static string ZipCode() => Faker.Address.ZipCode();
 
     // ✅ Dates
+    public static DateTime FutureIndefiniteDate() => DateTime.MaxValue;
+
     public static DateTime FutureDate(int years = 1) =>
-        Faker.Date.Future(years);
+        Faker.Date.Future(years, DateTime.UtcNow);
 
     public static DateTime PastDate(int years = 1) =>
-        Faker.Date.Past(years);
-   
+        Faker.Date.Past(years, DateTime.UtcNow);
+
 
     // ✅ Coordinates
     public static double Latitude() => Faker.Address.Latitude();

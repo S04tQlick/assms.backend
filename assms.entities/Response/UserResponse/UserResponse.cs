@@ -16,8 +16,6 @@ public class UserResponse
     public Guid InstitutionId { get; set; }
     public string? InstitutionName { get; set; }
     public Guid BranchId { get; set; }
-    public string? BranchName { get; set; }
 
     public Guid RoleId { get; set; }
-    public string? RoleName { get; set; }
 }

@@ -22,7 +22,68 @@ namespace assms.api.DAL.Data.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("assms.entities.Models.Asset", b =>
+            modelBuilder.Entity("assms.entities.Models.AssetCategory", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("Id");
+
+                    b.Property<string>("AssetCategoryName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("AssetTypeId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("CreatedAt");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("UpdatedAt");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AssetTypeId");
+
+                    b.ToTable("AssetCategories");
+                });
+
+            modelBuilder.Entity("assms.entities.Models.AssetImage", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("Id");
+
+                    b.Property<Guid>("AssetId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("CreatedAt");
+
+                    b.Property<bool>("IsHeadOffice")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("UpdatedAt");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AssetId");
+
+                    b.ToTable("AssetImages");
+                });
+
+            modelBuilder.Entity("assms.entities.Models.AssetModel", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -130,67 +191,6 @@ namespace assms.api.DAL.Data.Migrations
                     b.HasIndex("VendorId");
 
                     b.ToTable("Assets");
-                });
-
-            modelBuilder.Entity("assms.entities.Models.AssetCategory", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("Id");
-
-                    b.Property<string>("AssetCategoryName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<Guid>("AssetTypeId")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("CreatedAt");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("UpdatedAt");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AssetTypeId");
-
-                    b.ToTable("AssetCategories");
-                });
-
-            modelBuilder.Entity("assms.entities.Models.AssetImage", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("Id");
-
-                    b.Property<Guid>("AssetId")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("CreatedAt");
-
-                    b.Property<bool>("IsHeadOffice")
-                        .HasColumnType("boolean");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("UpdatedAt");
-
-                    b.Property<string>("Url")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AssetId");
-
-                    b.ToTable("AssetImages");
                 });
 
             modelBuilder.Entity("assms.entities.Models.AssetType", b =>
@@ -589,7 +589,7 @@ namespace assms.api.DAL.Data.Migrations
                     b.ToTable("RefreshTokens");
                 });
 
-            modelBuilder.Entity("assms.entities.Models.Role", b =>
+            modelBuilder.Entity("assms.entities.Models.RoleModel", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -653,7 +653,7 @@ namespace assms.api.DAL.Data.Migrations
                     b.ToTable("SubscriptionPlans");
                 });
 
-            modelBuilder.Entity("assms.entities.Models.User", b =>
+            modelBuilder.Entity("assms.entities.Models.UserModel", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -709,9 +709,6 @@ namespace assms.api.DAL.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<Guid>("RoleId")
-                        .HasColumnType("uuid");
-
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("UpdatedAt");
@@ -721,8 +718,6 @@ namespace assms.api.DAL.Data.Migrations
                     b.HasIndex("BranchId");
 
                     b.HasIndex("InstitutionId");
-
-                    b.HasIndex("RoleId");
 
                     b.ToTable("Users");
                 });
@@ -796,7 +791,29 @@ namespace assms.api.DAL.Data.Migrations
                     b.ToTable("Vendors");
                 });
 
-            modelBuilder.Entity("assms.entities.Models.Asset", b =>
+            modelBuilder.Entity("assms.entities.Models.AssetCategory", b =>
+                {
+                    b.HasOne("assms.entities.Models.AssetType", "AssetType")
+                        .WithMany("Categories")
+                        .HasForeignKey("AssetTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AssetType");
+                });
+
+            modelBuilder.Entity("assms.entities.Models.AssetImage", b =>
+                {
+                    b.HasOne("assms.entities.Models.AssetModel", "Asset")
+                        .WithMany("Images")
+                        .HasForeignKey("AssetId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Asset");
+                });
+
+            modelBuilder.Entity("assms.entities.Models.AssetModel", b =>
                 {
                     b.HasOne("assms.entities.Models.AssetCategory", "AssetCategory")
                         .WithMany("Assets")
@@ -839,28 +856,6 @@ namespace assms.api.DAL.Data.Migrations
                     b.Navigation("Vendor");
                 });
 
-            modelBuilder.Entity("assms.entities.Models.AssetCategory", b =>
-                {
-                    b.HasOne("assms.entities.Models.AssetType", "AssetType")
-                        .WithMany("Categories")
-                        .HasForeignKey("AssetTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AssetType");
-                });
-
-            modelBuilder.Entity("assms.entities.Models.AssetImage", b =>
-                {
-                    b.HasOne("assms.entities.Models.Asset", "Asset")
-                        .WithMany("Images")
-                        .HasForeignKey("AssetId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Asset");
-                });
-
             modelBuilder.Entity("assms.entities.Models.BranchModel", b =>
                 {
                     b.HasOne("assms.entities.Models.InstitutionModel", "Institution")
@@ -893,7 +888,7 @@ namespace assms.api.DAL.Data.Migrations
 
             modelBuilder.Entity("assms.entities.Models.MaintenanceDue", b =>
                 {
-                    b.HasOne("assms.entities.Models.Asset", "Asset")
+                    b.HasOne("assms.entities.Models.AssetModel", "Asset")
                         .WithMany("MaintenanceDueItems")
                         .HasForeignKey("AssetId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -904,7 +899,7 @@ namespace assms.api.DAL.Data.Migrations
 
             modelBuilder.Entity("assms.entities.Models.MaintenanceReport", b =>
                 {
-                    b.HasOne("assms.entities.Models.Asset", "Asset")
+                    b.HasOne("assms.entities.Models.AssetModel", "Asset")
                         .WithMany("MaintenanceReports")
                         .HasForeignKey("AssetId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -945,7 +940,7 @@ namespace assms.api.DAL.Data.Migrations
 
             modelBuilder.Entity("assms.entities.Models.RefreshToken", b =>
                 {
-                    b.HasOne("assms.entities.Models.User", "User")
+                    b.HasOne("assms.entities.Models.UserModel", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -954,7 +949,7 @@ namespace assms.api.DAL.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("assms.entities.Models.User", b =>
+            modelBuilder.Entity("assms.entities.Models.UserModel", b =>
                 {
                     b.HasOne("assms.entities.Models.BranchModel", "Branch")
                         .WithMany("Users")
@@ -968,28 +963,20 @@ namespace assms.api.DAL.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("assms.entities.Models.Role", "Role")
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Branch");
 
                     b.Navigation("Institution");
-
-                    b.Navigation("Role");
                 });
 
             modelBuilder.Entity("assms.entities.Models.UserRole", b =>
                 {
-                    b.HasOne("assms.entities.Models.Role", "Role")
+                    b.HasOne("assms.entities.Models.RoleModel", "Role")
                         .WithMany("UserRoles")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("assms.entities.Models.User", "User")
+                    b.HasOne("assms.entities.Models.UserModel", "User")
                         .WithMany("UserRoles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1000,18 +987,18 @@ namespace assms.api.DAL.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("assms.entities.Models.Asset", b =>
+            modelBuilder.Entity("assms.entities.Models.AssetCategory", b =>
+                {
+                    b.Navigation("Assets");
+                });
+
+            modelBuilder.Entity("assms.entities.Models.AssetModel", b =>
                 {
                     b.Navigation("Images");
 
                     b.Navigation("MaintenanceDueItems");
 
                     b.Navigation("MaintenanceReports");
-                });
-
-            modelBuilder.Entity("assms.entities.Models.AssetCategory", b =>
-                {
-                    b.Navigation("Assets");
                 });
 
             modelBuilder.Entity("assms.entities.Models.AssetType", b =>
@@ -1037,12 +1024,12 @@ namespace assms.api.DAL.Data.Migrations
                     b.Navigation("Users");
                 });
 
-            modelBuilder.Entity("assms.entities.Models.Role", b =>
+            modelBuilder.Entity("assms.entities.Models.RoleModel", b =>
                 {
                     b.Navigation("UserRoles");
                 });
 
-            modelBuilder.Entity("assms.entities.Models.User", b =>
+            modelBuilder.Entity("assms.entities.Models.UserModel", b =>
                 {
                     b.Navigation("UserRoles");
                 });

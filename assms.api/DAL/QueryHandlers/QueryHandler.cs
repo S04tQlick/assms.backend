@@ -17,6 +17,16 @@ public class QueryHandler<T>(ApplicationDbContext ctx) : IQueryHandler<T> where 
         return await query.ToListAsync();
     }
 
+    // public async Task<IEnumerable<T>> GetAllByInstitutionAsync(Guid id, params Expression<Func<T, object>>[]? includes)
+    // {
+    //     IQueryable<T> query = ctx.Set<T>().Where(o => o.Id == id);
+    //
+    //     if (includes == null) return await query.ToListAsync();
+    //     query = includes.Aggregate(query, (current, include) => current.Include(include));
+    //
+    //     return await query.ToListAsync();
+    // }
+
     public async Task<IEnumerable<T>> GetAllByDateAsync(DateTime date, params Expression<Func<T, object>>[]? includes)
     {
         IQueryable<T> query = ctx.Set<T>();

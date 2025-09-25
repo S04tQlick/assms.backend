@@ -8,8 +8,8 @@ public class UserRole : BaseModel
     
     
     [ForeignKey(nameof(UserId))]
-    public User? User { get; set; }
+    public UserModel? User { get; set; }
     
     [ForeignKey(nameof(RoleId))]
-    public Role? Role { get; set; }
+    public RoleModel? Role { get; set; }
 }

@@ -6,7 +6,7 @@ public class MaintenanceDue : BaseModel
     public Guid AssetId { get; set; }
     
     [ForeignKey(nameof(AssetId))]
-    public Asset? Asset { get; set; }
+    public AssetModel? Asset { get; set; }
 
     public required string MaintenanceType { get; set; }
     public string? Description { get; set; }

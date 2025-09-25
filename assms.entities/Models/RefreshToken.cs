@@ -6,7 +6,7 @@ public class RefreshToken: BaseModel
     public Guid UserId { get; set; }
     
     [ForeignKey(nameof(UserId))]
-    public User? User { get; set; }
+    public UserModel? User { get; set; }
 
     public DateTime ExpiresAt { get; set; }
     public bool Revoked { get; set; } = false;
