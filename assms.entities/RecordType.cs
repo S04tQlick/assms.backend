@@ -7,4 +7,6 @@ public enum RecordType
     Delete,
     GetAll,
     GetAllByDate,
+    LogIn,
+    LogOut
 }

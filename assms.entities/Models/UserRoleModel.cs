@@ -1,6 +1,7 @@
 namespace assms.entities.Models;
 
-public class UserRole : BaseModel
+[Table("UserRoles")]
+public class UserRoleModel : BaseModel
 {
     public Guid UserId { get; set; }
     public Guid RoleId { get; set; }

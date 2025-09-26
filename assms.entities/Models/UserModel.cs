@@ -24,5 +24,5 @@ public class UserModel : BaseModel
     public bool IsActive { get; set; } = true;
     public DateTime? LastLogin { get; set; }
 
-    public ICollection<UserRole>? UserRoles { get; set; }
+    public ICollection<UserRoleModel>? UserRoleModel { get; set; }
 }

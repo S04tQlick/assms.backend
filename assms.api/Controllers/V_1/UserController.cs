@@ -13,11 +13,18 @@ public class UserController (IUserService userService) : ControllerBase
 {
     // [HttpGet]
     // [Route(ControllerConstants.GetByInstitutionIdRoute)]
-    // public async Task<ActionResult<BaseActionResponse<IEnumerable<UserRowModel>>>>  GetAll(UserRequest request)
+    // public async Task<ActionResult<BaseActionResponse<IEnumerable<UserRowModel>>>>  GetAll()
     // {
     //     Log.Information("Querying {Institution} service by date",request.InstitutionId);
-    //     return await userService.GetAllByInstitutionAsync(request);
+    //     return await userService.GetAllAsync();
     // }
+    
+    [HttpGet]
+    public async Task<BaseActionResponse<IEnumerable<UserRowModel>>> GetAll()
+    {
+        Log.Information("Querying User service");
+        return await userService.GetAllAsync();
+    }
 
     [HttpPost]
     public async Task<ActionResult<UserRowModel>> CreateAsync(UserRequest request)

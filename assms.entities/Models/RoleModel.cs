@@ -5,5 +5,5 @@ public class RoleModel : BaseModel
 {
     public required string RoleName { get; set; }
 
-    public ICollection<UserRole>? UserRoles { get; set; }
+    public ICollection<UserRoleModel>? UserRoles { get; set; }
 }

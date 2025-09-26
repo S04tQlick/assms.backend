@@ -90,10 +90,10 @@ public static class DatabaseSeeder
             await db.SaveChangesAsync();
         }
         
-        if (!db.UserRoles.Any())
+        if (!db.UserRoleModel.Any())
         {
             var adminRole = db.RoleModel.First(r => r.RoleName == nameof(UserRolesEnum.SystemAdmin));
-            var userRole = new UserRole()
+            var userRole = new UserRoleModel()
             {
                 Id = Guid.NewGuid(),
                 UserId = db.UserModel.First().Id,
@@ -101,7 +101,7 @@ public static class DatabaseSeeder
                 CreatedAt = DateTime.UtcNow,
             };
         
-            await db.UserRoles.AddAsync(userRole);
+            await db.UserRoleModel.AddAsync(userRole);
             await db.SaveChangesAsync();
         }
     }
