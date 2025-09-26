@@ -2,6 +2,7 @@ using System.Linq.Expressions;
 using assms.api.DAL.DatabaseContext;
 using assms.entities.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 
 namespace assms.api.DAL.QueryHandlers;
 
@@ -16,6 +17,16 @@ public class QueryHandler<T>(ApplicationDbContext ctx) : IQueryHandler<T> where 
 
         return await query.ToListAsync();
     }
+
+    // public async Task<IEnumerable<T>> GetAllByInstitutionAsync(Guid id, params Expression<Func<T, object>>[]? includes)
+    // {
+    //     IQueryable<T> query = ctx.Set<T>().Where(o => o.Id == id);
+    //
+    //     if (includes == null) return await query.ToListAsync();
+    //     query = includes.Aggregate(query, (current, include) => current.Include(include));
+    //
+    //     return await query.ToListAsync();
+    // }
 
     public async Task<IEnumerable<T>> GetAllByDateAsync(DateTime date, params Expression<Func<T, object>>[]? includes)
     {
@@ -68,5 +79,14 @@ public class QueryHandler<T>(ApplicationDbContext ctx) : IQueryHandler<T> where 
     public async Task<bool> ExistsAsync(Expression<Func<T, bool>> predicate)
     {
         return await ctx.Set<T>().AnyAsync(predicate);
+    }
+
+    public async Task<T?> FirstOrDefaultAsync(Expression<Func<T, bool>> predicate, Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null)
+    {
+        IQueryable<T> query = ctx.Set<T>();
+        if (include != null)
+            query = include(query);
+        
+        return await query.FirstOrDefaultAsync(predicate);
     }
 }

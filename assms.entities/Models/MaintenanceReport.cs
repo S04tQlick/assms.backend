@@ -6,7 +6,7 @@ public class MaintenanceReport : BaseModel
     public Guid AssetId { get; set; }
     
     [ForeignKey(nameof(AssetId))]
-    public Asset? Asset { get; set; }
+    public AssetModel? Asset { get; set; }
 
     public required string MaintenanceType { get; set; }
     public required string Description { get; set; }

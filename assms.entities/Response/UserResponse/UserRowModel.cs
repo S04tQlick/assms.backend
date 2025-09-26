@@ -15,12 +15,8 @@ public class UserRowModel : BaseModel
     public DateTime? LastLogin { get; set; }
 
     public Guid InstitutionId { get; set; }
-    public string? InstitutionName { get; set; }
     public Guid BranchId { get; set; }
-    public string? BranchName { get; set; }
 
-    public Guid RoleId { get; set; }
-    public string? RoleName { get; set; }
 
     // Optionally include navigation collections if needed
     public int UserCount { get; set; }

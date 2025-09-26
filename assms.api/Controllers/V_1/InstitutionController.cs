@@ -1,6 +1,7 @@
 using Asp.Versioning;
 using assms.api.Constants;
 using assms.api.DAL.Services.InstitutionService;
+using assms.entities.GeneralResponse;
 using assms.entities.Request;
 using assms.entities.Response.InstitutionsResponse;
 using Microsoft.AspNetCore.Mvc;
@@ -14,25 +15,25 @@ namespace assms.api.Controllers.V_1;
 public class InstitutionController(IInstitutionService institutionService) : ControllerBase
 {
     [HttpGet]
-    public async Task<InstitutionActionResponse<IEnumerable<InstitutionRowModel>>> GetAll()
+    public async Task<BaseActionResponse<IEnumerable<InstitutionRowModel>>> GetAll()
     {
         Log.Information("Querying Institution service");
         return await institutionService.GetAllAsync();
     }
-    
+
     [HttpGet]
     [Route(ControllerConstants.GetByDateRoute)]
-    public async Task<InstitutionActionResponse<IEnumerable<InstitutionRowModel>>> GetByDate(DateTime date)
+    public async Task<BaseActionResponse<IEnumerable<InstitutionRowModel>>> GetByDate(DateTime date)
     {
         Log.Information("Querying Institution service by date", date);
         return await institutionService.GetAllByDateAsync(date);
     }
-    
+
     [HttpPost]
     public async Task<CreatedResult> CreateAsync(InstitutionRequest request)
     {
-        Log.Information("{Institution} added to database.", request.Name);
-        InstitutionActionResponse<int> res = await institutionService.CreateAsync(request);
+        Log.Information("{Institution} added to database.", request.Id);
+        BaseActionResponse<int> res = await institutionService.CreateAsync(request);
         return Created(nameof(CreateAsync), res);
     }
 

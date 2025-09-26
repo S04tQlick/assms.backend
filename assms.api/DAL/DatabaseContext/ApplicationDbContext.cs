@@ -6,14 +6,14 @@ namespace assms.api.DAL.DatabaseContext;
 public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : DbContext(options)
 {
     public DbSet<InstitutionModel> Institutions { get; set; }
-    public DbSet<BranchModel> Branches { get; set; }
-    public DbSet<User> Users { get; set; }
-    public DbSet<Role> Roles { get; set; }
-    public DbSet<UserRole> UserRoles { get; set; }
+    public DbSet<BranchModel> BranchModel { get; set; }
+    public DbSet<UserModel> UserModel { get; set; }
+    public DbSet<RoleModel> RoleModel { get; set; }
+    public DbSet<UserRoleModel> UserRoleModel { get; set; }
     public DbSet<Vendor> Vendors { get; set; }
-    public DbSet<AssetType> AssetTypes { get; set; }
-    public DbSet<AssetCategory> AssetCategories { get; set; }
-    public DbSet<Asset> Assets { get; set; }
+    public DbSet<AssetType> AssetTypeModel { get; set; }
+    public DbSet<AssetCategory> AssetCategoryModel { get; set; }
+    public DbSet<AssetModel> AssetModel { get; set; }
     public DbSet<AssetImage> AssetImages { get; set; }
     public DbSet<MaintenanceDue> MaintenanceDue { get; set; }
     public DbSet<MaintenanceReport> MaintenanceReports { get; set; }
@@ -28,15 +28,15 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         // Composite PK for UserRole
-        modelBuilder.Entity<UserRole>().HasKey(ur => new { ur.Id, ur.RoleId });
+        modelBuilder.Entity<UserRoleModel>().HasKey(ur => new { ur.Id, ur.RoleId });
 
         // Relationships
-        modelBuilder.Entity<UserRole>()
+        modelBuilder.Entity<UserRoleModel>()
             .HasOne(ur => ur.User)
-            .WithMany(u => u.UserRoles)
+            .WithMany(u => u.UserRoleModel)
             .HasForeignKey(ur => ur.UserId);
 
-        modelBuilder.Entity<UserRole>()
+        modelBuilder.Entity<UserRoleModel>()
             .HasOne(ur => ur.Role)
             .WithMany(r => r.UserRoles)
             .HasForeignKey(ur => ur.RoleId);
@@ -46,17 +46,17 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
             .WithMany(at => at.Categories)
             .HasForeignKey(ac => ac.AssetTypeId);
 
-        modelBuilder.Entity<Asset>()
+        modelBuilder.Entity<AssetModel>()
             .HasOne(a => a.AssetType)
             .WithMany(at => at.Assets)
             .HasForeignKey(a => a.AssetTypeId);
 
-        modelBuilder.Entity<Asset>()
+        modelBuilder.Entity<AssetModel>()
             .HasOne(a => a.AssetCategory)
             .WithMany(ac => ac.Assets)
             .HasForeignKey(a => a.AssetCategoryId);
 
-        modelBuilder.Entity<Asset>()
+        modelBuilder.Entity<AssetModel>()
             .HasOne(a => a.Vendor)
             .WithMany(v => v.Assets)
             .HasForeignKey(a => a.VendorId);

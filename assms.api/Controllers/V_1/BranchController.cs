@@ -1,5 +1,6 @@
 using assms.api.Constants;
 using assms.api.DAL.Services.BranchService;
+using assms.entities.GeneralResponse;
 using assms.entities.Request;
 using assms.entities.Response.BranchResponse;
 
@@ -11,15 +12,15 @@ namespace assms.api.Controllers.V_1;
 public class BranchController(IBranchService branchService) : ControllerBase
 {
     [HttpGet]
-    public async Task<BranchActionResponse<IEnumerable<BranchRowModel>>> GetAll()
+    public async Task<BaseActionResponse<IEnumerable<BranchRowModel>>> GetAll()
     {
         Log.Information("Querying Institution service");
         return await branchService.GetAllAsync();
     }
-    
+
     [HttpGet]
     [Route(ControllerConstants.GetByDateRoute)]
-    public async Task<BranchActionResponse<IEnumerable<BranchRowModel>>> GetByDate(DateTime date)
+    public async Task<BaseActionResponse<IEnumerable<BranchRowModel>>> GetByDate(DateTime date)
     {
         Log.Information("Querying Institution service by date", date);
         return await branchService.GetAllByDateAsync(date);
@@ -29,7 +30,7 @@ public class BranchController(IBranchService branchService) : ControllerBase
     public async Task<CreatedResult> CreateAsync(BranchRequest request)
     {
         Log.Information("{Branch} added to database.", request.Name);
-        BranchActionResponse<int> res = await branchService.CreateAsync(request);
+        BaseActionResponse<int> res = await branchService.CreateAsync(request);
         return Created(nameof(CreateAsync), res);
     }
 

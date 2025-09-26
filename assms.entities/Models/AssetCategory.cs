@@ -8,5 +8,5 @@ public class AssetCategory : BaseModel
     public AssetType? AssetType { get; set; }
     public required string  AssetCategoryName { get; set; }
 
-    public ICollection<Asset>? Assets { get; set; }
+    public ICollection<AssetModel>? Assets { get; set; }
 }

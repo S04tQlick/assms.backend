@@ -8,5 +8,5 @@ public class Vendor : BaseModel
     public required string ContactEmail { get; set; }
     public required string Address { get; set; }
 
-    public ICollection<Asset>? Assets { get; set; }
+    public ICollection<AssetModel>? Assets { get; set; }
 }

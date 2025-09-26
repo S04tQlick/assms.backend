@@ -1,11 +1,16 @@
 using System.Text;
 using Asp.Versioning;
+using assms.api.DAL.Data.DatabaseSeeder;
 using assms.api.DAL.DatabaseContext;
 using assms.api.DAL.QueryHandlers;
+using assms.api.DAL.Repositories.AuthRepository;
 using assms.api.DAL.Repositories.BranchRepository;
 using assms.api.DAL.Repositories.InstitutionRepository;
+using assms.api.DAL.Repositories.UserRepository;
+using assms.api.DAL.Services.AuthServices;
 using assms.api.DAL.Services.BranchService;
 using assms.api.DAL.Services.InstitutionService;
+using assms.api.DAL.Services.UserService;
 using assms.api.Helpers;
 using assms.api.Middlewares;
 using assms.entities.Config;
@@ -31,6 +36,10 @@ public static class ServiceExtensionCollection
         builder.Services.ConfigureApiVersioning();
         builder.Services.AddDbContext();
         builder.Services.AddScoped(typeof(IQueryHandler<>), typeof(QueryHandler<>));
+        
+        //Auth repository and services
+        builder.Services.AddScoped<IAuthService, AuthService>();
+        builder.Services.AddScoped<IAuthRepository, AuthRepository> ();
        
         //Institution repository and services
         builder.Services.AddScoped<IInstitutionService, InstitutionService>();
@@ -39,6 +48,10 @@ public static class ServiceExtensionCollection
         //Branch repository and services
         builder.Services.AddScoped<IBranchService, BranchService>();
         builder.Services.AddScoped<IBranchRepository, BranchRepository>();
+        
+        //Branch repository and services
+        builder.Services.AddScoped<IUserService, UserService>();
+        builder.Services.AddScoped<IUserRepository, UserRepository>();
         
         
         builder.Services.AddTransient<GlobalExceptionHandler>();
@@ -52,7 +65,10 @@ public static class ServiceExtensionCollection
     {
         var app = builder.Build();
 
-
+        var  scope= app.Services.CreateScope();
+        //DatabaseSeeder.SeedAsync(scope.ServiceProvider.GetRequiredService<ApplicationDbContext>()).Wait();
+        _ = DatabaseSeeder.SeedAsync(scope.ServiceProvider.GetRequiredService<ApplicationDbContext>());
+        
         if (app.Environment.IsDevelopment())
         {
             app.UseSwagger();

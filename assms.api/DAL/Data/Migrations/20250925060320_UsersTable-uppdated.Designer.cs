@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using assms.api.DAL.DatabaseContext;
@@ -11,9 +12,11 @@ using assms.api.DAL.DatabaseContext;
 namespace assms.api.DAL.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250925060320_UsersTable-uppdated")]
+    partial class UsersTableuppdated
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -190,7 +193,7 @@ namespace assms.api.DAL.Data.Migrations
 
                     b.HasIndex("VendorId");
 
-                    b.ToTable("Assets");
+                    b.ToTable("AssetModel");
                 });
 
             modelBuilder.Entity("assms.entities.Models.AssetType", b =>
@@ -270,7 +273,7 @@ namespace assms.api.DAL.Data.Migrations
 
                     b.HasIndex("InstitutionId");
 
-                    b.ToTable("Branches");
+                    b.ToTable("BranchModel");
                 });
 
             modelBuilder.Entity("assms.entities.Models.InstitutionModel", b =>
@@ -610,7 +613,7 @@ namespace assms.api.DAL.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Roles");
+                    b.ToTable("RoleModel");
                 });
 
             modelBuilder.Entity("assms.entities.Models.SubscriptionPlan", b =>
@@ -719,7 +722,7 @@ namespace assms.api.DAL.Data.Migrations
 
                     b.HasIndex("InstitutionId");
 
-                    b.ToTable("Users");
+                    b.ToTable("UserModel");
                 });
 
             modelBuilder.Entity("assms.entities.Models.UserRole", b =>

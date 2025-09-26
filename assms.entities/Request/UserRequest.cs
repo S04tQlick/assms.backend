@@ -1,6 +1,8 @@
+using assms.entities.Models;
+
 namespace assms.entities.Request;
 
-public class UserRequest
+public  class UserRequest : BaseModel
 {
     public required string FirstName { get; set; }
     public required string LastName { get; set; }
@@ -10,5 +12,5 @@ public class UserRequest
     public required string DisplayName { get; set; }
     public required string Password { get; set; } // plain text (will be hashed in service)
     public required string Phone { get; set; }
-    public Guid RoleId { get; set; } 
+    public bool IsActive { get; set; }
 }

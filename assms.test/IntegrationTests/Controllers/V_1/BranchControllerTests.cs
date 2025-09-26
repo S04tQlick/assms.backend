@@ -1,5 +1,7 @@
 using assms.api.Constants;
+using assms.api.Helpers;
 using assms.entities;
+using assms.entities.GeneralResponse;
 using assms.entities.Request;
 using assms.entities.Response.BranchResponse;
 using assms.test.Fixtures;
@@ -41,7 +43,7 @@ public class BranchControllerTests(ApplicationFixture fixture) : InstitionOperat
         response.StatusCode.Should().Be(HttpStatusCode.Created);
 
         string content = await response.Content.ReadAsStringAsync();
-        var responseMessage = TestOperations.Deserialize<BranchActionResponse<int>>(content);
+        var responseMessage = TestOperations.Deserialize<BaseActionResponse<int>>(content);
 
         responseMessage?.Message.Should().Be(MessageConstants.Success(RecordType.Save));
         responseMessage?.Data.Should().Be(1);

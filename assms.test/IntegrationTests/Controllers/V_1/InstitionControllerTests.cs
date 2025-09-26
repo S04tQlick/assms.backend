@@ -1,5 +1,7 @@
 using assms.api.Constants;
+using assms.api.Helpers;
 using assms.entities;
+using assms.entities.GeneralResponse;
 using assms.entities.Request;
 using assms.entities.Response.InstitutionsResponse;
 using assms.test.Fixtures;
@@ -33,7 +35,7 @@ public class InstitionControllerTests(ApplicationFixture fixture) : InstitionOpe
         response.StatusCode.Should().Be(HttpStatusCode.Created);
 
         string content = await response.Content.ReadAsStringAsync();
-        var responseMessage = TestOperations.Deserialize<InstitutionActionResponse<int>>(content);
+        var responseMessage = TestOperations.Deserialize<BaseActionResponse<int>>(content);
 
         responseMessage?.Message.Should().Be(MessageConstants.Success(RecordType.Save));
         responseMessage?.Data.Should().Be(1);

@@ -1,6 +1,7 @@
 namespace assms.entities.Models;
 
-public class Asset : BaseModel
+[Table("Assets")]
+public class AssetModel : BaseModel
 {
     public Guid InstitutionId { get; set; }
     

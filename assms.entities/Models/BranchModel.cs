@@ -1,5 +1,6 @@
 namespace assms.entities.Models;
 
+[Table("Branches")]
 public class BranchModel : GeoBaseModel
 {
     public Guid InstitutionId { get; set; }
@@ -14,6 +15,6 @@ public class BranchModel : GeoBaseModel
     public required string Country { get; set; }
     public bool IsActive { get; set; } = true;
 
-    public ICollection<User>? Users { get; set; }
-    public ICollection<Asset>? Assets { get; set; }
+    public ICollection<UserModel>? Users { get; set; }
+    public ICollection<AssetModel>? Assets { get; set; }
 }

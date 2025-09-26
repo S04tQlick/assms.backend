@@ -1,6 +1,7 @@
 using System.Linq.Expressions;
 using assms.entities.Models;
 using assms.entities.Response.InstitutionsResponse;
+using Microsoft.EntityFrameworkCore.Query;
 
 namespace assms.api.DAL.QueryHandlers;
 
@@ -13,4 +14,6 @@ public interface IQueryHandler<T> where T : BaseModel
     Task<int> UpdateAsync(T entity);
     Task<int> DeleteAsync(Guid id);
     Task<bool> ExistsAsync(Expression<Func<T, bool>> predicate);
+    Task<T?> FirstOrDefaultAsync(Expression<Func<T, bool>> predicate,
+        Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null);
 }
