@@ -1,4 +1,5 @@
 using assms.entities;
+using assms.entities.Enums;
 
 namespace assms.api.Constants;
 
@@ -14,16 +15,16 @@ public static class MessageConstants
     public static string NotFoundResource =>
         "The requested resource could not be found.";
 
-    public static string Success(RecordType attendanceType) =>
+    public static string Success(RecordTypeEnum attendanceType) =>
         attendanceType switch
         {
-            RecordType.LogIn=>"Login Successful",
-            RecordType.LogOut=>"Login Successful",
-            RecordType.Save => "Record Added Successful",
-            RecordType.Edit => "Record Updated Successful",
-            RecordType.Delete=> "Record Deleted Successful",
-            RecordType.GetAll => "Get record Successful",
-            RecordType.GetAllByDate => "Get record by date Successful",
+            RecordTypeEnum.LogIn=>"Login Successful",
+            RecordTypeEnum.LogOut=>"Login Successful",
+            RecordTypeEnum.Save => "Record Added Successful",
+            RecordTypeEnum.Edit => "Record Updated Successful",
+            RecordTypeEnum.Delete=> "Record Deleted Successful",
+            RecordTypeEnum.GetAll => "Get record Successful",
+            RecordTypeEnum.GetAllByDate => "Get record by date Successful",
             _ => "Request processed successfully."
         };
 }

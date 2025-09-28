@@ -22,7 +22,7 @@ namespace assms.api.DAL.Data.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("assms.entities.Models.AssetCategory", b =>
+            modelBuilder.Entity("assms.entities.Models.AssetCategoryModel", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -113,10 +113,6 @@ namespace assms.api.DAL.Data.Migrations
                     b.Property<Guid>("BranchId")
                         .HasColumnType("uuid");
 
-                    b.Property<string>("BranchName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<string>("Country")
                         .IsRequired()
                         .HasColumnType("text");
@@ -148,13 +144,14 @@ namespace assms.api.DAL.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<DateTime?>("PurchaseDate")
+                    b.Property<DateTime>("PurchaseDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<decimal?>("PurchasePrice")
+                    b.Property<decimal>("PurchasePrice")
                         .HasColumnType("numeric");
 
                     b.Property<string>("Region")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Status")
@@ -165,17 +162,13 @@ namespace assms.api.DAL.Data.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("UpdatedAt");
 
-                    b.Property<string>("VendorContact")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<Guid>("VendorId")
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime?>("WarrantyEndDate")
+                    b.Property<DateTime>("WarrantyEndDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<DateTime?>("WarrantyStartDate")
+                    b.Property<DateTime>("WarrantyStartDate")
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
@@ -193,7 +186,7 @@ namespace assms.api.DAL.Data.Migrations
                     b.ToTable("Assets");
                 });
 
-            modelBuilder.Entity("assms.entities.Models.AssetType", b =>
+            modelBuilder.Entity("assms.entities.Models.AssetTypeModel", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -722,7 +715,7 @@ namespace assms.api.DAL.Data.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("assms.entities.Models.UserRole", b =>
+            modelBuilder.Entity("assms.entities.Models.UserRoleModel", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uuid")
@@ -751,7 +744,7 @@ namespace assms.api.DAL.Data.Migrations
                     b.ToTable("UserRoles");
                 });
 
-            modelBuilder.Entity("assms.entities.Models.Vendor", b =>
+            modelBuilder.Entity("assms.entities.Models.VendorModel", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -791,9 +784,9 @@ namespace assms.api.DAL.Data.Migrations
                     b.ToTable("Vendors");
                 });
 
-            modelBuilder.Entity("assms.entities.Models.AssetCategory", b =>
+            modelBuilder.Entity("assms.entities.Models.AssetCategoryModel", b =>
                 {
-                    b.HasOne("assms.entities.Models.AssetType", "AssetType")
+                    b.HasOne("assms.entities.Models.AssetTypeModel", "AssetType")
                         .WithMany("Categories")
                         .HasForeignKey("AssetTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -815,43 +808,43 @@ namespace assms.api.DAL.Data.Migrations
 
             modelBuilder.Entity("assms.entities.Models.AssetModel", b =>
                 {
-                    b.HasOne("assms.entities.Models.AssetCategory", "AssetCategory")
+                    b.HasOne("assms.entities.Models.AssetCategoryModel", "AssetCategoryModel")
                         .WithMany("Assets")
                         .HasForeignKey("AssetCategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("assms.entities.Models.AssetType", "AssetType")
+                    b.HasOne("assms.entities.Models.AssetTypeModel", "AssetTypeModel")
                         .WithMany("Assets")
                         .HasForeignKey("AssetTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("assms.entities.Models.BranchModel", "Branch")
+                    b.HasOne("assms.entities.Models.BranchModel", "BranchModel")
                         .WithMany("Assets")
                         .HasForeignKey("BranchId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("assms.entities.Models.InstitutionModel", "Institution")
+                    b.HasOne("assms.entities.Models.InstitutionModel", "InstitutionModel")
                         .WithMany("Assets")
                         .HasForeignKey("InstitutionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("assms.entities.Models.Vendor", "Vendor")
+                    b.HasOne("assms.entities.Models.VendorModel", "Vendor")
                         .WithMany("Assets")
                         .HasForeignKey("VendorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("AssetCategory");
+                    b.Navigation("AssetCategoryModel");
 
-                    b.Navigation("AssetType");
+                    b.Navigation("AssetTypeModel");
 
-                    b.Navigation("Branch");
+                    b.Navigation("BranchModel");
 
-                    b.Navigation("Institution");
+                    b.Navigation("InstitutionModel");
 
                     b.Navigation("Vendor");
                 });
@@ -968,7 +961,7 @@ namespace assms.api.DAL.Data.Migrations
                     b.Navigation("Institution");
                 });
 
-            modelBuilder.Entity("assms.entities.Models.UserRole", b =>
+            modelBuilder.Entity("assms.entities.Models.UserRoleModel", b =>
                 {
                     b.HasOne("assms.entities.Models.RoleModel", "Role")
                         .WithMany("UserRoles")
@@ -977,7 +970,7 @@ namespace assms.api.DAL.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("assms.entities.Models.UserModel", "User")
-                        .WithMany("UserRoles")
+                        .WithMany("UserRoleModel")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -987,7 +980,7 @@ namespace assms.api.DAL.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("assms.entities.Models.AssetCategory", b =>
+            modelBuilder.Entity("assms.entities.Models.AssetCategoryModel", b =>
                 {
                     b.Navigation("Assets");
                 });
@@ -1001,7 +994,7 @@ namespace assms.api.DAL.Data.Migrations
                     b.Navigation("MaintenanceReports");
                 });
 
-            modelBuilder.Entity("assms.entities.Models.AssetType", b =>
+            modelBuilder.Entity("assms.entities.Models.AssetTypeModel", b =>
                 {
                     b.Navigation("Assets");
 
@@ -1031,10 +1024,10 @@ namespace assms.api.DAL.Data.Migrations
 
             modelBuilder.Entity("assms.entities.Models.UserModel", b =>
                 {
-                    b.Navigation("UserRoles");
+                    b.Navigation("UserRoleModel");
                 });
 
-            modelBuilder.Entity("assms.entities.Models.Vendor", b =>
+            modelBuilder.Entity("assms.entities.Models.VendorModel", b =>
                 {
                     b.Navigation("Assets");
                 });

@@ -5,14 +5,14 @@ namespace assms.api.DAL.DatabaseContext;
 
 public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : DbContext(options)
 {
-    public DbSet<InstitutionModel> Institutions { get; set; }
+    public DbSet<InstitutionModel> InstitutionModel { get; set; }
     public DbSet<BranchModel> BranchModel { get; set; }
     public DbSet<UserModel> UserModel { get; set; }
     public DbSet<RoleModel> RoleModel { get; set; }
     public DbSet<UserRoleModel> UserRoleModel { get; set; }
-    public DbSet<Vendor> Vendors { get; set; }
-    public DbSet<AssetType> AssetTypeModel { get; set; }
-    public DbSet<AssetCategory> AssetCategoryModel { get; set; }
+    public DbSet<VendorModel> VendorModel { get; set; }
+    public DbSet<AssetTypeModel> AssetTypeModel { get; set; }
+    public DbSet<AssetCategoryModel> AssetCategoryModel { get; set; }
     public DbSet<AssetModel> AssetModel { get; set; }
     public DbSet<AssetImage> AssetImages { get; set; }
     public DbSet<MaintenanceDue> MaintenanceDue { get; set; }
@@ -41,18 +41,23 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
             .WithMany(r => r.UserRoles)
             .HasForeignKey(ur => ur.RoleId);
 
-        modelBuilder.Entity<AssetCategory>()
+        modelBuilder.Entity<AssetCategoryModel>()
             .HasOne(ac => ac.AssetType)
             .WithMany(at => at.Categories)
             .HasForeignKey(ac => ac.AssetTypeId);
 
         modelBuilder.Entity<AssetModel>()
-            .HasOne(a => a.AssetType)
+            .HasOne(a => a.BranchModel)
+            .WithMany(at => at.Assets)
+            .HasForeignKey(a => a.BranchId);
+
+        modelBuilder.Entity<AssetModel>()
+            .HasOne(a => a.AssetTypeModel)
             .WithMany(at => at.Assets)
             .HasForeignKey(a => a.AssetTypeId);
 
         modelBuilder.Entity<AssetModel>()
-            .HasOne(a => a.AssetCategory)
+            .HasOne(a => a.AssetCategoryModel)
             .WithMany(ac => ac.Assets)
             .HasForeignKey(a => a.AssetCategoryId);
 

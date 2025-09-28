@@ -1,6 +1,7 @@
 using assms.api.Constants;
 using assms.api.Helpers;
 using assms.entities;
+using assms.entities.Enums;
 using assms.entities.GeneralResponse;
 using assms.entities.Request;
 using assms.entities.Response.BranchResponse;
@@ -9,7 +10,7 @@ using assms.test.Helpers;
 
 namespace assms.test.IntegrationTests.Controllers.V_1;
 
-public class BranchControllerTests(ApplicationFixture fixture) : InstitionOperations(fixture), IClassFixture<ApplicationFixture>
+public class BranchControllerTests(ApplicationFixture fixture) : GeneralOperations(fixture), IClassFixture<ApplicationFixture>
 {
     private readonly ApplicationFixture _fixture = fixture;
 
@@ -45,7 +46,7 @@ public class BranchControllerTests(ApplicationFixture fixture) : InstitionOperat
         string content = await response.Content.ReadAsStringAsync();
         var responseMessage = TestOperations.Deserialize<BaseActionResponse<int>>(content);
 
-        responseMessage?.Message.Should().Be(MessageConstants.Success(RecordType.Save));
+        responseMessage?.Message.Should().Be(MessageConstants.Success(RecordTypeEnum.Save));
         responseMessage?.Data.Should().Be(1);
     }
 }

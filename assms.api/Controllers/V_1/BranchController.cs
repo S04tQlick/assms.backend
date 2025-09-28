@@ -30,7 +30,7 @@ public class BranchController(IBranchService branchService) : ControllerBase
     public async Task<CreatedResult> CreateAsync(BranchRequest request)
     {
         Log.Information("{Branch} added to database.", request.Name);
-        BaseActionResponse<int> res = await branchService.CreateAsync(request);
+        var res = await branchService.CreateAsync(request);
         return Created(nameof(CreateAsync), res);
     }
 

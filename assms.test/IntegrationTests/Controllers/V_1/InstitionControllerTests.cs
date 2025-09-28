@@ -1,6 +1,7 @@
 using assms.api.Constants;
 using assms.api.Helpers;
 using assms.entities;
+using assms.entities.Enums;
 using assms.entities.GeneralResponse;
 using assms.entities.Request;
 using assms.entities.Response.InstitutionsResponse;
@@ -9,7 +10,7 @@ using assms.test.Helpers;
 
 namespace assms.test.IntegrationTests.Controllers.V_1;
 
-public class InstitionControllerTests(ApplicationFixture fixture) : InstitionOperations(fixture), IClassFixture<ApplicationFixture>
+public class InstitionControllerTests(ApplicationFixture fixture) : GeneralOperations(fixture), IClassFixture<ApplicationFixture>
 {
     private readonly ApplicationFixture _fixture = fixture;
 
@@ -34,10 +35,10 @@ public class InstitionControllerTests(ApplicationFixture fixture) : InstitionOpe
 
         response.StatusCode.Should().Be(HttpStatusCode.Created);
 
-        string content = await response.Content.ReadAsStringAsync();
+        var content = await response.Content.ReadAsStringAsync();
         var responseMessage = TestOperations.Deserialize<BaseActionResponse<int>>(content);
 
-        responseMessage?.Message.Should().Be(MessageConstants.Success(RecordType.Save));
+        responseMessage?.Message.Should().Be(MessageConstants.Success(RecordTypeEnum.Save));
         responseMessage?.Data.Should().Be(1);
     }
 }

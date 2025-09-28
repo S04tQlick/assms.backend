@@ -1,9 +1,10 @@
 namespace assms.entities.Models;
 
-public class AssetType : BaseModel
+[Table("AssetTypes")]
+public class AssetTypeModel : BaseModel
 {
     public required string AssetTypeName { get; set; }
 
-    public ICollection<AssetCategory>? Categories { get; set; }
+    public ICollection<AssetCategoryModel>? Categories { get; set; }
     public ICollection<AssetModel>? Assets { get; set; }
 }

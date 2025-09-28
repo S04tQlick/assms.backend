@@ -1,6 +1,7 @@
 using assms.api.Constants;
 using assms.api.DAL.Repositories.UserRepository;
 using assms.entities;
+using assms.entities.Enums;
 using assms.entities.GeneralResponse;
 using assms.entities.Request;
 using assms.entities.Response.UserResponse;
@@ -14,14 +15,14 @@ public class UserService (IUserRepository  userRepository ):IUserService
         var response = await  userRepository.GetAllAsync();
         Log.Information("Queried for records.");
 
-        var userList = response.ToList();
+        var responseList = response.ToList();
 
         return new  BaseActionResponse<IEnumerable< UserRowModel>>
         {
-            Message = MessageConstants.Success(RecordType.GetAllByDate),
-            Data = userList,
-            RowCount = userList.Count,
-            UserCount =  userList.Sum(i=>i.UserCount)
+            Message = MessageConstants.Success(RecordTypeEnum.GetAllByDate),
+            Data = responseList,
+            RowCount = responseList.Count,
+            UserCount =  responseList.Sum(i=>i.UserCount)
         };
     }
 
@@ -30,14 +31,14 @@ public class UserService (IUserRepository  userRepository ):IUserService
     //     var  response = await userRepository.GetAllByInstitutionAsync(request.InstitutionId);
     //     Log.Information("Queried for {Institution} records.",request.InstitutionId);
     //     
-    //     var userList = response.ToList();
+    //     var responseList = response.ToList();
     //
     //     return new  BaseActionResponse<IEnumerable< UserRowModel>>
     //     {
     //         Message = MessageConstants.Success(RecordType.GetAllByDate),
-    //         Data = userList,
-    //         RowCount = userList.Count,
-    //         UserCount =  userList.Sum(i=>i.UserCount)
+    //         Data = responseList,
+    //         RowCount = responseList.Count,
+    //         UserCount =  responseList.Sum(i=>i.UserCount)
     //     };
     // }
 
@@ -51,7 +52,7 @@ public class UserService (IUserRepository  userRepository ):IUserService
 
         return new  BaseActionResponse<IEnumerable< UserRowModel>>
         {
-            Message = MessageConstants.Success(RecordType.GetAllByDate),
+            Message = MessageConstants.Success(RecordTypeEnum.GetAllByDate),
             Data = branchList,
             RowCount = branchList.Count,
             UserCount =  branchList.Sum(i=>i.UserCount)
@@ -64,7 +65,7 @@ public class UserService (IUserRepository  userRepository ):IUserService
         Log.Information("{ User} successfully created", request.Email);
         return new BaseActionResponse<int>
         {
-            Message = MessageConstants.Success(RecordType.Save),
+            Message = MessageConstants.Success(RecordTypeEnum.Save),
             Data = response
         };
     }
@@ -75,7 +76,7 @@ public class UserService (IUserRepository  userRepository ):IUserService
         Log.Information("{ User} successfully updated", request.Id);
         return new  BaseActionResponse<int>
         {
-            Message = MessageConstants.Success(RecordType.Edit),
+            Message = MessageConstants.Success(RecordTypeEnum.Edit),
             Data = response
         };
     }
@@ -86,7 +87,7 @@ public class UserService (IUserRepository  userRepository ):IUserService
         Log.Information("{ User} successfully deleted", id);
         return new  BaseActionResponse<int>
         {
-            Message = MessageConstants.Success(RecordType.Delete),
+            Message = MessageConstants.Success(RecordTypeEnum.Delete),
             Data = response
         };
     }

@@ -33,7 +33,7 @@ public class InstitutionController(IInstitutionService institutionService) : Con
     public async Task<CreatedResult> CreateAsync(InstitutionRequest request)
     {
         Log.Information("{Institution} added to database.", request.Id);
-        BaseActionResponse<int> res = await institutionService.CreateAsync(request);
+        var res = await institutionService.CreateAsync(request);
         return Created(nameof(CreateAsync), res);
     }
 
