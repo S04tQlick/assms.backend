@@ -2,7 +2,7 @@ using Bogus;
 
 namespace assms.api.Helpers;
 
-public class FakeDataHelper
+public abstract class FakeDataHelper
 {
     private static readonly Faker Faker = new();
 
@@ -18,6 +18,7 @@ public class FakeDataHelper
     public static string FirstName() => Faker.Name.FirstName();
     public static string LastName() => Faker.Name.LastName();
     public static string Email() => Faker.Internet.Email();
+    public static string ContactNumber() => Faker.Phone.PhoneNumber();
 
     // ✅ Location data
     public static string Country() => Faker.Address.Country();

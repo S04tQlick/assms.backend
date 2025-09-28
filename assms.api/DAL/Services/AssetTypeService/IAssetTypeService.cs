@@ -1,0 +1,14 @@
+using assms.entities.GeneralResponse;
+using assms.entities.Request;
+using assms.entities.Response.AssetTypeResponse;
+
+namespace assms.api.DAL.Services.AssetTypeService;
+
+public interface IAssetTypeService
+{
+    Task<BaseActionResponse<IEnumerable<AssetTypeRowModel>>> GetAllAsync();
+    Task<BaseActionResponse<IEnumerable<AssetTypeRowModel>>> GetAllByDateAsync(DateTime date);
+    Task<BaseActionResponse<int>> CreateAsync(AssetTypeRequest request);
+    Task<BaseActionResponse<int>> UpdateAsync(AssetTypeRequest request);
+    Task<BaseActionResponse<int>> DeleteAsync(Guid id);
+}

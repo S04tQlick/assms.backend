@@ -30,7 +30,7 @@ public class UserController (IUserService userService) : ControllerBase
     public async Task<ActionResult<UserRowModel>> CreateAsync(UserRequest request)
     {
         Log.Information("{Institution} added to database.", request.Id);
-        BaseActionResponse<int> res= await userService.CreateAsync(request);
+        var res= await userService.CreateAsync(request);
         return Created(nameof(CreateAsync), res);
     }
 
@@ -38,7 +38,7 @@ public class UserController (IUserService userService) : ControllerBase
     public async Task<ActionResult<UserRowModel>> UpdateAsync(UserRequest request)
     {
         Log.Information("{Institution} updated to database.", request.Id);
-        BaseActionResponse<int>res= await userService.UpdateAsync(request);
+        var res= await userService.UpdateAsync(request);
         return NoContent();
     }
 }

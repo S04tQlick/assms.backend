@@ -1,0 +1,88 @@
+using assms.api.Constants;
+using assms.api.DAL.QueryHandlers;
+using assms.api.DAL.Repositories.AssetTypeRepository;
+using assms.entities.Models;
+using assms.entities.Request;
+using assms.entities.Response.AssetTypeResponse;
+using Microsoft.EntityFrameworkCore;
+
+namespace assms.api.DAL.Repositories.AssetTypeRepository;
+
+public class AssetTypeRepository(IQueryHandler<AssetTypeModel> queryHandler) : IAssetTypeRepository
+{
+    public async Task<IEnumerable<AssetTypeRowModel>> GetAllAsync()
+    {
+        var response = await queryHandler.GetAllAsync(
+            (AssetTypeModel i) => i.Assets!
+        );
+
+        return response.Select(x => new AssetTypeRowModel
+        {
+            AssetTypeId= x.Id,
+            AssetTypeName= x.AssetTypeName,
+        }).ToList();
+    }
+
+    public async Task<IEnumerable<AssetTypeRowModel>> GetAllByDateAsync(DateTime date)
+    {
+        var response = await queryHandler.GetAllByDateAsync(
+            date,
+            (AssetTypeModel i) => i.Assets!
+        );
+
+        return response.Select(x => new AssetTypeRowModel
+        {
+            AssetTypeId= x.Id,
+            AssetTypeName= x.AssetTypeName,
+        }).ToList();
+    }
+
+    public async Task<AssetTypeResponse> GetAssetTypeDataAsync(Guid rowId)
+    {
+        var row = await GetRowDataAsync(rowId);
+
+        if (row is null)
+            throw new KeyNotFoundException(MessageConstants.NotFoundRecord);
+
+        return new AssetTypeResponse
+        {
+            AssetTypeId = row.Id,
+            AssetTypeName = row.AssetTypeName,
+        };
+    }
+
+    public async Task<int> CreateAssetTypeAsync(AssetTypeRequest request)
+    {
+        var exists = await queryHandler.ExistsAsync(e =>
+            EF.Functions.ILike(e.AssetTypeName, request.AssetTypeName));
+
+        if (exists)
+            throw new Exception("AssetType already exists.");
+
+        return await queryHandler.CreateAsync(new AssetTypeModel
+        {
+            AssetTypeName = request.AssetTypeName,
+            CreatedAt = DateTime.UtcNow,
+            UpdatedAt = DateTime.UtcNow,
+        });
+    }
+
+    public async Task<int> UpdateAssetTypeAsync(AssetTypeRequest request)
+    {
+        var row = await GetRowDataAsync(request.Id);
+        if (row is null)
+            throw new Exception(MessageConstants.NotFoundRecord);
+
+        row.Id= request.Id;
+        row.AssetTypeName = request.AssetTypeName;
+        row.UpdatedAt = DateTime.UtcNow;
+
+        return await queryHandler.UpdateAsync(row);
+    }
+
+    public async Task<int> DeleteAssetTypeAsync(Guid rowId) =>
+        await queryHandler.DeleteAsync(rowId);
+
+    private async Task<AssetTypeModel?> GetRowDataAsync(Guid rowId) =>
+        await queryHandler.GetByIdAsync(rowId);
+}

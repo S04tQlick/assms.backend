@@ -1,6 +1,7 @@
 using assms.api.Constants;
 using assms.api.DAL.Repositories.AuthRepository;
 using assms.entities;
+using assms.entities.Enums;
 using assms.entities.GeneralResponse;
 using assms.entities.Response.AuthResponse;
 using LoginRequest = Microsoft.AspNetCore.Identity.Data.LoginRequest;
@@ -15,7 +16,7 @@ public class AuthService(IAuthRepository authRepository) : IAuthService
         Log.Information("{User} attempts to login", request.Email);
         return new BaseActionResponse<AuthActionResponse>
         {
-            Message = MessageConstants.Success(RecordType.LogIn),
+            Message = MessageConstants.Success(RecordTypeEnum.LogIn),
             Data = response
         };
     }

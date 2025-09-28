@@ -14,7 +14,7 @@ public class AuthController(IAuthService authService) : ControllerBase
     public async Task<CreatedResult> LoginAsync(LoginRequest request)
     {
         Log.Information("{Branch} added to database.", request.Email);
-        BaseActionResponse<AuthActionResponse> res = await authService.LoginAsync(request);
+        var res = await authService.LoginAsync(request);
         return Created(nameof(LoginAsync), res);
     }
     

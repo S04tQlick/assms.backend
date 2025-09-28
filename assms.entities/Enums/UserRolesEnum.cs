@@ -1,4 +1,4 @@
-namespace assms.entities;
+namespace assms.entities.Enums;
 
 public enum UserRolesEnum
 {

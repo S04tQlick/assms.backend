@@ -2,6 +2,7 @@ using System.ComponentModel;
 using assms.api.Constants;
 using assms.api.DAL.Repositories.InstitutionRepository;
 using assms.entities;
+using assms.entities.Enums;
 using assms.entities.GeneralResponse;
 using assms.entities.Request;
 using assms.entities.Response.InstitutionsResponse;
@@ -16,14 +17,14 @@ public class InstitutionService (IInstitutionRepository institutionRepository ):
         var response = await institutionRepository.GetAllAsync();
         Log.Information("Queried for records.");
 
-        var institionList = response.ToList();
+        var responseList = response.ToList();
 
         return new BaseActionResponse<IEnumerable<InstitutionRowModel>>
         {
-            Message = MessageConstants.Success(RecordType.GetAllByDate),
-            Data = institionList,
-            RowCount = institionList.Count,
-            BranchCount = institionList.Sum(i=>i.BranchCount)
+            Message = MessageConstants.Success(RecordTypeEnum.GetAll),
+            Data = responseList,
+            RowCount = responseList.Count,
+            BranchCount = responseList.Sum(i=>i.BranchCount)
         };
     }
     
@@ -33,24 +34,24 @@ public class InstitutionService (IInstitutionRepository institutionRepository ):
         var response = await institutionRepository.GetAllByDateAsync(utcDate);
         Log.Information("Queried for records by {Date}.", utcDate);
 
-        var institionList = response.ToList();
+        var responseList = response.ToList();
 
         return new BaseActionResponse<IEnumerable<InstitutionRowModel>>
         {
-            Message = MessageConstants.Success(RecordType.GetAllByDate),
-            Data = institionList,
-            RowCount = institionList.Count,
-            BranchCount = institionList.Sum(i=>i.BranchCount)
+            Message = MessageConstants.Success(RecordTypeEnum.GetAllByDate),
+            Data = responseList,
+            RowCount = responseList.Count,
+            BranchCount = responseList.Sum(i=>i.BranchCount)
         };
     }
     
     public async Task<BaseActionResponse<int>> CreateAsync(InstitutionRequest request)
     {
         var response = await institutionRepository.CreateInstitutionAsync(request);
-        Log.Information("{Institution} successfully created", request.Name);
+        Log.Information("{Institution} successfully created", request.Id);
         return new BaseActionResponse<int>
         {
-            Message = MessageConstants.Success(RecordType.Save),
+            Message = MessageConstants.Success(RecordTypeEnum.Save),
             Data = response
         };
     }
@@ -61,7 +62,7 @@ public class InstitutionService (IInstitutionRepository institutionRepository ):
         Log.Information("{Institution} successfully updated", request.Id);
         return new BaseActionResponse<int>
         {
-            Message = MessageConstants.Success(RecordType.Edit),
+            Message = MessageConstants.Success(RecordTypeEnum.Edit),
             Data = response
         };
     }
@@ -72,7 +73,7 @@ public class InstitutionService (IInstitutionRepository institutionRepository ):
         Log.Information("{Institution} successfully deleted", id);
         return new BaseActionResponse<int>
         {
-            Message = MessageConstants.Success(RecordType.Delete),
+            Message = MessageConstants.Success(RecordTypeEnum.Delete),
             Data = response
         };
     }

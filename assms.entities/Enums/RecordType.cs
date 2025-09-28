@@ -1,6 +1,6 @@
-namespace assms.entities;
+namespace assms.entities.Enums;
 
-public enum RecordType
+public enum RecordTypeEnum
 {
     Save,
     Edit,

@@ -1,6 +1,7 @@
 using assms.api.Constants;
 using assms.api.DAL.Repositories.BranchRepository;
 using assms.entities;
+using assms.entities.Enums;
 using assms.entities.GeneralResponse;
 using assms.entities.Request;
 using assms.entities.Response.BranchResponse;
@@ -15,13 +16,13 @@ public class BranchService(IBranchRepository branchRepository) : IBranchService
         var response = await branchRepository.GetAllAsync();
         Log.Information("Queried for records.");
 
-        var branchList = response.ToList();
+        var responseList = response.ToList();
 
         return new BaseActionResponse<IEnumerable<BranchRowModel>>
         {
-            Message = MessageConstants.Success(RecordType.GetAllByDate),
-            Data = branchList,
-            RowCount = branchList.Count,
+            Message = MessageConstants.Success(RecordTypeEnum.GetAll),
+            Data = responseList,
+            RowCount = responseList.Count,
         };
     }
     
@@ -31,23 +32,23 @@ public class BranchService(IBranchRepository branchRepository) : IBranchService
         var response = await branchRepository.GetAllByDateAsync(utcDate);
         Log.Information("Queried for records by {Date}.", utcDate);
 
-        var branchList = response.ToList();
+        var responseList = response.ToList();
 
         return new BaseActionResponse<IEnumerable<BranchRowModel>>
         {
-            Message = MessageConstants.Success(RecordType.GetAllByDate),
-            Data = branchList,
-            RowCount = branchList.Count
+            Message = MessageConstants.Success(RecordTypeEnum.GetAllByDate),
+            Data = responseList,
+            RowCount = responseList.Count
         };
     }
    
     public async Task<BaseActionResponse<int>> CreateAsync(BranchRequest request)
     {
         var response = await branchRepository.CreateBranchAsync(request);
-        Log.Information("{Branch} successfully created", request.Name);
+        Log.Information("{Branch} successfully created", request.Id);
         return new BaseActionResponse<int>
         {
-            Message = MessageConstants.Success(RecordType.Save),
+            Message = MessageConstants.Success(RecordTypeEnum.Save),
             Data = response
         };
     }
@@ -58,7 +59,7 @@ public class BranchService(IBranchRepository branchRepository) : IBranchService
         Log.Information("{Institution} successfully updated {Branch}", request.InstitutionId,request.Id);
         return new BaseActionResponse<int>
         {
-            Message = MessageConstants.Success(RecordType.Edit),
+            Message = MessageConstants.Success(RecordTypeEnum.Edit),
             Data = response
         };
     }
@@ -69,7 +70,7 @@ public class BranchService(IBranchRepository branchRepository) : IBranchService
         Log.Information("{Branch} successfully deleted", id);
         return new BaseActionResponse<int>
         {
-            Message = MessageConstants.Success(RecordType.Delete),
+            Message = MessageConstants.Success(RecordTypeEnum.Delete),
             Data = response
         };
     }
