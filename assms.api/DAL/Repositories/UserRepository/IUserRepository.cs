@@ -1,7 +1,3 @@
-using assms.entities.Request;
-using assms.entities.Response.BranchResponse;
-using assms.entities.Response.UserResponse;
-
 namespace assms.api.DAL.Repositories.UserRepository;
 
 public interface IUserRepository

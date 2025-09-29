@@ -1,6 +1,3 @@
-using assms.entities.Models;
-using Microsoft.EntityFrameworkCore;
-
 namespace assms.api.DAL.DatabaseContext;
 
 public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : DbContext(options)

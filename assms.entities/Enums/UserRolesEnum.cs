@@ -7,6 +7,12 @@ public enum UserRolesEnum
     //// Manages user accounts, roles, and permissions.
     //// Configures system settings, integrations, and security policies.
     SystemAdmin,
+    
+    //// Institution/Branch Administrator
+    //// Manages assets tied to a specific institution or branch.
+    //// Handles asset requests within their institution.
+    //// Generates localized reports (usage, inventory, depreciation).
+    BranchAdmin,
    
     //// Asset Manager
     //// Oversees all assets across institutions/branches.
@@ -14,12 +20,6 @@ public enum UserRolesEnum
     //// Assigns assets to departments or users.
     //// Approves asset transfers, disposals, or procurement.
     AssetManager,
-    
-    //// Institution/Branch Administrator
-    //// Manages assets tied to a specific institution or branch.
-    //// Handles asset requests within their institution.
-    //// Generates localized reports (usage, inventory, depreciation).
-    BranchAdmin,
     
     //// Department Manager
     //// Manages assets within their department/team.

@@ -1,8 +1,3 @@
-using assms.entities.Request;
-using assms.entities.Response.AuthResponse;
-using assms.entities.Response.BranchResponse;
-using LoginRequest = Microsoft.AspNetCore.Identity.Data.LoginRequest;
-
 namespace assms.api.DAL.Repositories.AuthRepository;
 
 public interface IAuthRepository

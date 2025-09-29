@@ -1,14 +1,9 @@
-using assms.api.Constants;
-using assms.api.DAL.Services.AssetCategoryService;
-using assms.entities.GeneralResponse;
-using assms.entities.Request;
-using assms.entities.Response.AssetCategoryResponse;
-
 namespace assms.api.Controllers.V_1;
 
 [ApiController]
 [ApiVersion(1)]
 [Route("api/v{version:apiVersion}/[Controller]")]
+[Authorize(Policy = $"{nameof(UserRolesEnum.SystemAdmin)}")]
 public class AssetCategoryController(IAssetCategoryService assetCategoryService) : ControllerBase
 {
     [HttpGet]

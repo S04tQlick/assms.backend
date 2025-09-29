@@ -1,6 +1,3 @@
-using assms.entities.Request;
-using assms.entities.Response.BranchResponse;
-
 namespace assms.api.DAL.Repositories.BranchRepository;
 
 public interface IBranchRepository

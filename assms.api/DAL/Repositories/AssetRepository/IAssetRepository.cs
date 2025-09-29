@@ -1,6 +1,3 @@
-using assms.entities.Request;
-using assms.entities.Response.AssetResponse;
-
 namespace assms.api.DAL.Repositories.AssetRepository;
 
 public interface IAssetRepository

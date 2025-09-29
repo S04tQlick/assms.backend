@@ -1,10 +1,8 @@
-using System.Net.Mime;
 using assms.api.Constants;
 using assms.api.Helpers;
 using assms.entities.Enums;
 using assms.entities.GeneralResponse;
 using assms.entities.Request;
-using assms.entities.Response.VendorResponse;
 using assms.test.Fixtures;
 using assms.test.Helpers;
 

@@ -1,12 +1,3 @@
-using assms.api.Constants;
-using assms.api.DAL.Repositories.AssetCategoryRepository;
-using assms.api.DAL.Repositories.AssetTypeRepository;
-using assms.entities;
-using assms.entities.Enums;
-using assms.entities.GeneralResponse;
-using assms.entities.Request;
-using assms.entities.Response.AssetTypeResponse;
-
 namespace assms.api.DAL.Services.AssetTypeService;
 
 public class AssetTypeService(IAssetTypeRepository assetTypeRepository) : IAssetTypeService

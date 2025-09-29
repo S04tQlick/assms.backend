@@ -1,11 +1,3 @@
-using assms.api.Constants;
-using assms.api.DAL.Repositories.AuthRepository;
-using assms.entities;
-using assms.entities.Enums;
-using assms.entities.GeneralResponse;
-using assms.entities.Response.AuthResponse;
-using LoginRequest = Microsoft.AspNetCore.Identity.Data.LoginRequest;
-
 namespace assms.api.DAL.Services.AuthServices;
 
 public class AuthService(IAuthRepository authRepository) : IAuthService

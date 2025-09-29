@@ -1,13 +1,3 @@
-using System.ComponentModel;
-using assms.api.Constants;
-using assms.api.DAL.Repositories.InstitutionRepository;
-using assms.entities;
-using assms.entities.Enums;
-using assms.entities.GeneralResponse;
-using assms.entities.Request;
-using assms.entities.Response.InstitutionsResponse;
-using Serilog;
-
 namespace assms.api.DAL.Services.InstitutionService;
 
 public class InstitutionService (IInstitutionRepository institutionRepository ):IInstitutionService

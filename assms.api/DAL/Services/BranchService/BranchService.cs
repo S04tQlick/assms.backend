@@ -1,12 +1,3 @@
-using assms.api.Constants;
-using assms.api.DAL.Repositories.BranchRepository;
-using assms.entities;
-using assms.entities.Enums;
-using assms.entities.GeneralResponse;
-using assms.entities.Request;
-using assms.entities.Response.BranchResponse;
-using Serilog;
-
 namespace assms.api.DAL.Services.BranchService;
 
 public class BranchService(IBranchRepository branchRepository) : IBranchService

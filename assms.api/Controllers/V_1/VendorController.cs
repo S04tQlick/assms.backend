@@ -1,9 +1,3 @@
-using assms.api.Constants;
-using assms.api.DAL.Services.VendorService;
-using assms.entities.GeneralResponse;
-using assms.entities.Request;
-using assms.entities.Response.VendorResponse;
-
 namespace assms.api.Controllers.V_1;
 
 [ApiController]

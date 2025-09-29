@@ -1,11 +1,3 @@
-using assms.api.Constants;
-using assms.api.DAL.QueryHandlers;
-using assms.entities.Models;
-using assms.entities.Request;
-using assms.entities.Response.BranchResponse;
-using assms.entities.Response.UserResponse;
-using Microsoft.EntityFrameworkCore;
-
 namespace assms.api.DAL.Repositories.UserRepository;
 
 public class UserRepository(IQueryHandler<UserModel> queryHandler) : IUserRepository

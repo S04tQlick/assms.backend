@@ -1,8 +1,3 @@
-using System.Linq.Expressions;
-using assms.entities.Models;
-using assms.entities.Response.InstitutionsResponse;
-using Microsoft.EntityFrameworkCore.Query;
-
 namespace assms.api.DAL.QueryHandlers;
 
 public interface IQueryHandler<T> where T : BaseModel

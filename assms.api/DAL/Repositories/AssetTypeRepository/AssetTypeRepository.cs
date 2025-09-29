@@ -1,11 +1,3 @@
-using assms.api.Constants;
-using assms.api.DAL.QueryHandlers;
-using assms.api.DAL.Repositories.AssetTypeRepository;
-using assms.entities.Models;
-using assms.entities.Request;
-using assms.entities.Response.AssetTypeResponse;
-using Microsoft.EntityFrameworkCore;
-
 namespace assms.api.DAL.Repositories.AssetTypeRepository;
 
 public class AssetTypeRepository(IQueryHandler<AssetTypeModel> queryHandler) : IAssetTypeRepository

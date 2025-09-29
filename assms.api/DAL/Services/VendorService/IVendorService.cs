@@ -1,7 +1,3 @@
-using assms.entities.GeneralResponse;
-using assms.entities.Request;
-using assms.entities.Response.VendorResponse;
-
 namespace assms.api.DAL.Services.VendorService;
 
 public interface IVendorService

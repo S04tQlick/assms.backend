@@ -1,11 +1,3 @@
-using assms.api.Constants;
-using assms.api.DAL.Repositories.UserRepository;
-using assms.entities;
-using assms.entities.Enums;
-using assms.entities.GeneralResponse;
-using assms.entities.Request;
-using assms.entities.Response.UserResponse;
-
 namespace assms.api.DAL.Services.UserService;
 
 public class UserService (IUserRepository  userRepository ):IUserService

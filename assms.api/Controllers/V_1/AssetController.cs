@@ -1,9 +1,3 @@
-using assms.api.Constants;
-using assms.api.DAL.Services.AssetService;
-using assms.entities.GeneralResponse;
-using assms.entities.Request;
-using assms.entities.Response.AssetResponse;
-
 namespace assms.api.Controllers.V_1;
 
 [ApiController]

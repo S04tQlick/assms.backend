@@ -1,7 +1,3 @@
-using assms.entities.GeneralResponse;
-using assms.entities.Request;
-using assms.entities.Response.InstitutionsResponse;
-
 namespace assms.api.DAL.Services.InstitutionService;
 
 public interface IInstitutionService

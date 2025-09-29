@@ -1,5 +1,3 @@
-using assms.entities.Models;
-
 namespace assms.entities.Response.InstitutionsResponse;
 
 public class InstitutionRowModel

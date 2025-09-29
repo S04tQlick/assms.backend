@@ -1,7 +1,3 @@
-using assms.entities.GeneralResponse;
-using assms.entities.Request;
-using assms.entities.Response.BranchResponse;
-
 namespace assms.api.DAL.Services.BranchService;
 
 public interface IBranchService

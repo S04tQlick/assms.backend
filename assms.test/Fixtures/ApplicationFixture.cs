@@ -1,5 +1,3 @@
-using Microsoft.VisualStudio.TestPlatform.TestHost;
-
 namespace assms.test.Fixtures;
 
 public class ApplicationFixture : IAsyncLifetime

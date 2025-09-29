@@ -1,10 +1,3 @@
-using assms.api.Constants;
-using assms.api.DAL.QueryHandlers;
-using assms.entities.Models;
-using assms.entities.Request;
-using assms.entities.Response.AssetCategoryResponse;
-using Microsoft.EntityFrameworkCore;
-
 namespace assms.api.DAL.Repositories.AssetCategoryRepository;
 
 public class AssetCategoryRepository(IQueryHandler<AssetCategoryModel> queryHandler) : IAssetCategoryRepository

@@ -1,10 +1,3 @@
-using assms.api.Constants;
-using assms.api.DAL.Repositories.VendorRepository;
-using assms.entities.Enums;
-using assms.entities.GeneralResponse;
-using assms.entities.Request;
-using assms.entities.Response.VendorResponse;
-
 namespace assms.api.DAL.Services.VendorService;
 
 public class VendorService(IVendorRepository vendorRepository) : IVendorService

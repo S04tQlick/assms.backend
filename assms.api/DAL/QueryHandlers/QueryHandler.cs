@@ -1,9 +1,3 @@
-using System.Linq.Expressions;
-using assms.api.DAL.DatabaseContext;
-using assms.entities.Models;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query;
-
 namespace assms.api.DAL.QueryHandlers;
 
 public class QueryHandler<T>(ApplicationDbContext ctx) : IQueryHandler<T> where T : BaseModel

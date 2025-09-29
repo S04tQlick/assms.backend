@@ -1,6 +1,6 @@
 namespace assms.api.Helpers;
 
-public static class ReturnEnv
+public static class ReturnHelpers
 {
     public static string Env(string recQuery)
     {

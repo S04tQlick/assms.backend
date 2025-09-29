@@ -1,11 +1,3 @@
-using assms.api.Constants;
-using assms.api.DAL.QueryHandlers;
-using assms.entities;
-using assms.entities.Models;
-using assms.entities.Request;
-using assms.entities.Response.InstitutionsResponse;
-using Microsoft.EntityFrameworkCore;
-
 namespace assms.api.DAL.Repositories.InstitutionRepository;
 
 public class InstitutionRepository(IQueryHandler<InstitutionModel> queryHandler) : IInstitutionRepository

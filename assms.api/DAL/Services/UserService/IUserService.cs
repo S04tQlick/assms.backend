@@ -1,7 +1,3 @@
-using assms.entities.GeneralResponse;
-using assms.entities.Request;
-using assms.entities.Response.UserResponse;
-
 namespace assms.api.DAL.Services.UserService;
 
 public interface IUserService

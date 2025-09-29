@@ -1,7 +1,3 @@
-using Serilog;
-using Serilog.Core;
-using Serilog.Events;
-
 namespace assms.api.Helpers;
 
 public static class AmssLogger

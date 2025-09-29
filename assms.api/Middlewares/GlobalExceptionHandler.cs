@@ -1,11 +1,3 @@
-using System.Net;
-using System.Net.Mail;
-using assms.api.Constants;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Npgsql;
-using Serilog;
-
 namespace assms.api.Middlewares;
 
 public class GlobalExceptionHandler : IMiddleware

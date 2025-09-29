@@ -1,5 +1,3 @@
-using assms.entities.Request;
-
 namespace assms.entities.Models;
 
 public abstract class BaseModel

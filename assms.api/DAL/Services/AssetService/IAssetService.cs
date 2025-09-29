@@ -1,7 +1,3 @@
-using assms.entities.GeneralResponse;
-using assms.entities.Request;
-using assms.entities.Response.AssetResponse;
-
 namespace assms.api.DAL.Services.AssetService;
 
 public interface IAssetService

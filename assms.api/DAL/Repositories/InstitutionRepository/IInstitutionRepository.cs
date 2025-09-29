@@ -1,7 +1,3 @@
-using assms.entities.Models;
-using assms.entities.Request;
-using assms.entities.Response.InstitutionsResponse;
-
 namespace assms.api.DAL.Repositories.InstitutionRepository;
 
 public interface IInstitutionRepository

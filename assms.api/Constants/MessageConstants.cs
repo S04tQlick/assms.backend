@@ -1,6 +1,3 @@
-using assms.entities;
-using assms.entities.Enums;
-
 namespace assms.api.Constants;
 
 public static class MessageConstants

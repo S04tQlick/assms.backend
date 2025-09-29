@@ -1,5 +1,3 @@
-using Bogus;
-
 namespace assms.api.Helpers;
 
 public abstract class FakeDataHelper

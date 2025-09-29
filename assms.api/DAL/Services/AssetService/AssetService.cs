@@ -1,11 +1,3 @@
-using assms.api.Constants;
-using assms.api.DAL.Repositories.AssetRepository;
-using assms.entities;
-using assms.entities.Enums;
-using assms.entities.GeneralResponse;
-using assms.entities.Request;
-using assms.entities.Response.AssetResponse;
-
 namespace assms.api.DAL.Services.AssetService;
 
 public class AssetService (IAssetRepository assetRepository ):IAssetService

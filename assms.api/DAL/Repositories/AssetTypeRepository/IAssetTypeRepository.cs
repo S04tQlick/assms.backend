@@ -1,6 +1,3 @@
-using assms.entities.Request;
-using assms.entities.Response.AssetTypeResponse;
-
 namespace assms.api.DAL.Repositories.AssetTypeRepository;
 
 public interface IAssetTypeRepository

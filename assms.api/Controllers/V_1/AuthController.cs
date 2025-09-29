@@ -1,8 +1,3 @@
-using assms.api.DAL.Services.AuthServices;
-using assms.entities.GeneralResponse;
-using assms.entities.Response.AuthResponse;
-using Microsoft.AspNetCore.Identity.Data;
-
 namespace assms.api.Controllers.V_1;
 
 [ApiController]

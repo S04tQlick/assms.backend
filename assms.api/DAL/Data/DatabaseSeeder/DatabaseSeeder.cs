@@ -1,11 +1,3 @@
-using assms.api.DAL.DatabaseContext;
-using assms.api.Helpers;
-using assms.entities;
-using assms.entities.Enums;
-using assms.entities.Models;
-using Bogus;
-using Microsoft.EntityFrameworkCore;
-
 namespace assms.api.DAL.Data.DatabaseSeeder;
 
 public static class DatabaseSeeder
@@ -155,9 +147,6 @@ public static class DatabaseSeeder
             await db.SaveChangesAsync();
         }
         
-        
-        
-
         // Check if any institution exists
         if (!db.InstitutionModel.Any())
         {

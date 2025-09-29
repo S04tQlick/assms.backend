@@ -1,14 +1,10 @@
-using assms.api.Constants;
-using assms.api.DAL.Services.UserService;
-using assms.entities.GeneralResponse;
-using assms.entities.Request;
-using assms.entities.Response.UserResponse;
-
 namespace assms.api.Controllers.V_1;
 
 [ApiController]
 [ApiVersion(1)]
 [Route("api/v{version:apiVersion}/[controller]")]
+
+[Authorize(Policy = $"{nameof(UserRolesEnum.SystemAdmin)},{nameof(UserRolesEnum.BranchAdmin)}")]
 public class UserController (IUserService userService) : ControllerBase
 {
     // [HttpGet]

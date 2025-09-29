@@ -1,6 +1,3 @@
-using assms.entities.Request;
-using assms.entities.Response.VendorResponse;
-
 namespace assms.api.DAL.Repositories.VendorRepository;
 
 public interface IVendorRepository

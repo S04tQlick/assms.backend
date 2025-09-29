@@ -1,7 +1,3 @@
-using assms.entities.GeneralResponse;
-using assms.entities.Request;
-using assms.entities.Response.AssetCategoryResponse;
-
 namespace assms.api.DAL.Services.AssetCategoryService;
 
 public interface IAssetCategoryService

@@ -1,10 +1,3 @@
-using assms.api.Constants;
-using assms.api.DAL.QueryHandlers;
-using assms.entities.Models;
-using assms.entities.Request;
-using assms.entities.Response.VendorResponse;
-using Microsoft.EntityFrameworkCore;
-
 namespace assms.api.DAL.Repositories.VendorRepository;
 
 public class VendorRepository(IQueryHandler<VendorModel> queryHandler) : IVendorRepository

@@ -1,16 +1,3 @@
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
-using assms.api.DAL.QueryHandlers;
-using assms.entities.Config;
-using assms.entities.Models;
-using assms.entities.Response.AuthResponse;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
-using StackExchange.Redis;
-using LoginRequest = Microsoft.AspNetCore.Identity.Data.LoginRequest;
-
 namespace assms.api.DAL.Repositories.AuthRepository;
 
 public class AuthRepository(
