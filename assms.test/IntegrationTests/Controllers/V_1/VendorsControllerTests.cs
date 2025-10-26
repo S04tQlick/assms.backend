@@ -8,7 +8,7 @@ using assms.test.Helpers;
 
 namespace assms.test.IntegrationTests.Controllers.V_1;
 
-public class VendorControllerTests(ApplicationFixture fixture) : GeneralOperations(fixture), IClassFixture<ApplicationFixture>
+public class VendorsControllerTests(ApplicationFixture fixture) : GeneralOperations(fixture), IClassFixture<ApplicationFixture>
 {
     private readonly ApplicationFixture _fixture = fixture;
 

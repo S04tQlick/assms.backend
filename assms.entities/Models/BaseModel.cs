@@ -2,7 +2,7 @@ namespace assms.entities.Models;
 
 public abstract class BaseModel
 {
-    [Column("Id")] public Guid Id { get; set; } = Guid.NewGuid();
+    [Column("Id")] public Guid Id { get; set; }
 
     [Column("CreatedAt")] public DateTime CreatedAt { get; set; }
 

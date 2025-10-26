@@ -38,13 +38,8 @@ public class QueryHandler<T>(ApplicationDbContext ctx) : IQueryHandler<T> where 
     {
         IQueryable<T> query = ctx.Set<T>();
 
-        if (includes != null)
-        {
-            foreach (var include in includes)
-            {
-                query = query.Include(include);
-            }
-        }
+        if (includes == null) return await query.FirstOrDefaultAsync(e => e.Id == id);
+        query = includes.Aggregate(query, (current, include) => current.Include(include));
 
         return await query.FirstOrDefaultAsync(e => e.Id == id);
     }
@@ -70,10 +65,8 @@ public class QueryHandler<T>(ApplicationDbContext ctx) : IQueryHandler<T> where 
         return await ctx.SaveChangesAsync();
     }
 
-    public async Task<bool> ExistsAsync(Expression<Func<T, bool>> predicate)
-    {
-        return await ctx.Set<T>().AnyAsync(predicate);
-    }
+    public async Task<bool> ExistsAsync(Expression<Func<T, bool>> predicate) =>
+        await ctx.Set<T>().AnyAsync(predicate);
 
     public async Task<T?> FirstOrDefaultAsync(Expression<Func<T, bool>> predicate, Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null)
     {

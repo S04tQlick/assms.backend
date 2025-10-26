@@ -3,7 +3,7 @@ namespace assms.api.Controllers.V_1;
 [ApiController]
 [ApiVersion(1)]
 [Route("api/v{version:apiVersion}/[Controller]")]
-public class AssetController(IAssetService assetService) : ControllerBase
+public class AssetsController(IAssetService assetService) : ControllerBase
 {
     [HttpGet]
     public async Task<BaseActionResponse<IEnumerable<AssetRowModel>>> GetAll()

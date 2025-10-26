@@ -156,10 +156,11 @@ public static class DatabaseSeeder
                 Country = "Ghana",
                 Region = "Greater Accra",
                 City = "Accra",
-                Address = "Head Office Address",
+                Email = "Head Office Address",
                 SubscriptionExpiresAt = FakeDataHelper.FutureIndefiniteDate(),
-                LogoUrl = FakeDataHelper.LogoUrl(),
                 IsActive = true,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow
             };
             await db.InstitutionModel.AddAsync(institution);
             await db.SaveChangesAsync();
@@ -178,7 +179,9 @@ public static class DatabaseSeeder
                 Address = "Branch Office Address",
                 Latitude = FakeDataHelper.Latitude(),
                 Longitude = FakeDataHelper.Longitude(),
-                IsActive = true
+                IsActive = true,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow
             };
         
             await db.BranchModel.AddAsync(branch);
@@ -198,6 +201,8 @@ public static class DatabaseSeeder
                 BranchId = db.BranchModel.First().Id,
                 Email = "admin@default.com",
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword("Admin@123"),
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow
             };
         
             db.UserModel.Add(user);
@@ -213,6 +218,7 @@ public static class DatabaseSeeder
                 UserId = db.UserModel.First().Id,
                 RoleId = adminRole.Id,
                 CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow
             };
         
             await db.UserRoleModel.AddAsync(userRole);

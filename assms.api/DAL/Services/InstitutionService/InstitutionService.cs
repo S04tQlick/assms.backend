@@ -17,7 +17,20 @@ public class InstitutionService (IInstitutionRepository institutionRepository ):
             BranchCount = responseList.Sum(i=>i.BranchCount)
         };
     }
-    
+
+    public async Task<BaseActionResponse<InstitutionRowModel>> GetByIdAsync(Guid id)
+    {
+        var response = await institutionRepository.GetByIdAsync(id);
+        Log.Information("Queried for records by {id}.", id);
+
+        return new BaseActionResponse<InstitutionRowModel>
+        {
+            Message = MessageConstants.Success(RecordTypeEnum.GetAllByDate),
+            Data = response,
+            BranchCount = response.BranchCount
+        };
+    }
+
     public async Task<BaseActionResponse<IEnumerable<InstitutionRowModel>>> GetAllByDateAsync(DateTime date)
     {
         var utcDate = DateTime.SpecifyKind(date.Date, DateTimeKind.Utc);

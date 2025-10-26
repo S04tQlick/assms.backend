@@ -21,11 +21,10 @@ public class InstitionControllerTests(ApplicationFixture fixture) : GeneralOpera
             {
                 Id = Guid.NewGuid(),
                 Name = FakeDataHelper.CompanyName(),
-                LogoUrl = FakeDataHelper.LogoUrl(),
                 Country = FakeDataHelper.Country(),
                 Region = FakeDataHelper.Region(),
                 City = FakeDataHelper.City(),
-                Address = FakeDataHelper.Address(),
+                Email = FakeDataHelper.Email(),
                 SubscriptionExpiresAt = DateTime.UtcNow.AddYears(1),
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,

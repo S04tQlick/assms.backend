@@ -3,8 +3,8 @@ namespace assms.api.Controllers.V_1;
 [ApiController]
 [ApiVersion(1)]
 [Route("api/v{version:apiVersion}/[Controller]")]
-[Authorize(Policy = $"{nameof(UserRolesEnum.BranchAdmin)}")]
-public class BranchController(IBranchService branchService) : ControllerBase
+//[Authorize(Policy = $"{nameof(UserRolesEnum.BranchAdmin)}")]
+public class BranchesController(IBranchService branchService) : ControllerBase
 {
     [HttpGet]
     public async Task<BaseActionResponse<IEnumerable<BranchRowModel>>> GetAll()

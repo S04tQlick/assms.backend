@@ -8,7 +8,7 @@ using assms.test.Helpers;
 
 namespace assms.test.IntegrationTests.Controllers.V_1;
 
-public class BranchControllerTests(ApplicationFixture fixture) : GeneralOperations(fixture), IClassFixture<ApplicationFixture>
+public class BranchesControllerTests(ApplicationFixture fixture) : GeneralOperations(fixture), IClassFixture<ApplicationFixture>
 {
     private readonly ApplicationFixture _fixture = fixture;
 
@@ -19,14 +19,14 @@ public class BranchControllerTests(ApplicationFixture fixture) : GeneralOperatio
         var row = institutionData?.Data?.FirstOrDefault();
         row.Should().NotBeNull();
 
-        var instId = row.InstitutionId;
+        var instId = row.Id;
 
         var response = await _fixture.Client.PostAsync(
             ApiPath.SetBranchControllerRoute(),
             TestOperations.SetRequestBody(new BranchRequest
             {
                 Id = Guid.NewGuid(),
-                InstitutionId = row.InstitutionId,
+                InstitutionId = row.Id,
                 Name = FakeDataHelper.CompanyName(),
                 Address = FakeDataHelper.Address(),
                 City = FakeDataHelper.City(),

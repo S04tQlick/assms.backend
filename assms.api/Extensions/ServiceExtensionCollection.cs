@@ -1,3 +1,7 @@
+using assms.api.DAL.Repositories.SanityRepository;
+using assms.api.DAL.Services.SanityServices;
+using Microsoft.OpenApi.Models;
+
 namespace assms.api.Extensions;
 
 public static class ServiceExtensionCollection
@@ -7,6 +11,30 @@ public static class ServiceExtensionCollection
         Log.Logger = AmssLogger.CreateLogger();
 
         builder.Services.AddSwaggerGen();
+        builder.Services.AddSwaggerGen(c =>
+        {
+            c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+            {
+                In = ParameterLocation.Header,
+                Description = "JWT Authorization header using the Bearer scheme",
+                Name = "Authorization",
+                Type = SecuritySchemeType.Http,
+                Scheme = "bearer"
+            });
+
+            c.AddSecurityRequirement(new OpenApiSecurityRequirement {
+                {
+                    new OpenApiSecurityScheme {
+                        Reference = new OpenApiReference {
+                            Type = ReferenceType.SecurityScheme,
+                            Id = "Bearer"
+                        }
+                    },
+                    []
+                }
+            });
+        });
+        
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddControllers();
         builder.Services.ConfigureApiVersioning();
@@ -49,7 +77,13 @@ public static class ServiceExtensionCollection
         builder.Services.AddScoped<IVendorService, VendorService>();
         builder.Services.AddScoped<IVendorRepository, VendorRepository>();
         
+        // //Sanity Image repository and services
+        builder.Services.AddScoped<ISanityService, SanityService>();
+        builder.Services.AddScoped<ISanityRepository, SanityRepository>();
+        
         builder.Services.AddTransient<GlobalExceptionHandler>();
+        
+        builder.Services.AddHttpClient();
     }
 
     public static void AddUsings(this WebApplicationBuilder builder)

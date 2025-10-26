@@ -12,13 +12,12 @@ public class InstitutionRepository(IQueryHandler<InstitutionModel> queryHandler)
 
         return response.Select(x => new InstitutionRowModel
         {
-            InstitutionId = x.Id,
+            Id = x.Id,
             Name = x.Name,
             Country = x.Country,
             Region = x.Region,
             City = x.City,
-            Address = x.Address,
-            LogoUrl = x.LogoUrl,
+            Email = x.Email,
             IsActive = x.IsActive,
             SubscriptionExpiresAt = x.SubscriptionExpiresAt ?? DateTime.MinValue,
             BranchCount = x.Branches?.Count ?? 0,
@@ -38,19 +37,45 @@ public class InstitutionRepository(IQueryHandler<InstitutionModel> queryHandler)
 
         return response.Select(x => new InstitutionRowModel
         {
-            InstitutionId = x.Id,
+            Id = x.Id,
             Name = x.Name,
             Country = x.Country,
             Region = x.Region,
             City = x.City,
-            Address = x.Address,
-            LogoUrl = x.LogoUrl,
+            Email = x.Email,
             IsActive = x.IsActive,
             SubscriptionExpiresAt = x.SubscriptionExpiresAt ?? DateTime.MinValue,
             BranchCount = x.Branches?.Count ?? 0,
             UserCount = x.Users?.Count ?? 0,
             AssetCount = x.Assets?.Count ?? 0
         }).ToList();
+    }
+
+    public async Task<InstitutionRowModel> GetByIdAsync(Guid id)
+    {
+        var response = await queryHandler.GetByIdAsync(id,
+            (InstitutionModel i) => i.Branches!,
+            (InstitutionModel i) => i.Users!,
+            (InstitutionModel i) => i.Assets!
+        );
+
+        if (response is null)
+            throw new KeyNotFoundException(MessageConstants.NotFoundRecord);
+
+        return new InstitutionRowModel
+        {
+            Id = response.Id,
+            Name = response.Name,
+            Country = response.Country,
+            Region = response.Region,
+            City = response.City,
+            Email = response.Email,
+            IsActive = response.IsActive,
+            SubscriptionExpiresAt = response.SubscriptionExpiresAt ?? DateTime.MinValue,
+            BranchCount = response.Branches?.Count ?? 0,
+            UserCount = response.Users?.Count ?? 0,
+            AssetCount = response.Assets?.Count ?? 0
+        };
     }
 
     public async Task<InstitutionResponse> GetInstitutionDataAsync(Guid rowId)
@@ -66,8 +91,7 @@ public class InstitutionRepository(IQueryHandler<InstitutionModel> queryHandler)
             Country = row.Country,
             Region = row.Region,
             City = row.City,
-            Address = row.Address,
-            LogoUrl = row.LogoUrl
+            Email = row.Email,
         };
     }
 
@@ -88,8 +112,7 @@ public class InstitutionRepository(IQueryHandler<InstitutionModel> queryHandler)
             Country = request.Country,
             Region = request.Region,
             City = request.City,
-            Address = request.Address,
-            LogoUrl = request.LogoUrl,
+            Email = request.Email,
             CreatedAt = DateTime.UtcNow,
             UpdatedAt = DateTime.UtcNow,
             SubscriptionExpiresAt = DateTime.UtcNow.AddYears(1),
@@ -107,8 +130,7 @@ public class InstitutionRepository(IQueryHandler<InstitutionModel> queryHandler)
         row.Country = request.Country;
         row.Region = request.Region;
         row.City = request.City;
-        row.Address = request.Address;
-        row.LogoUrl = request.LogoUrl;
+        row.Email = request.Email;
         row.UpdatedAt = DateTime.UtcNow;
         row.SubscriptionExpiresAt = request.SubscriptionExpiresAt;
         row.IsActive = request.IsActive;

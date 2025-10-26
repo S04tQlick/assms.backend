@@ -4,7 +4,7 @@ namespace assms.api.Controllers.V_1;
 [ApiVersion(1)]
 [Route("api/v{version:apiVersion}/[Controller]")]
 [Authorize(Policy = $"{nameof(UserRolesEnum.SystemAdmin)}")]
-public class AssetTypeController(IAssetTypeService assetTypeService) : ControllerBase
+public class AssetTypesController(IAssetTypeService assetTypeService) : ControllerBase
 {
     [HttpGet]
     public async Task<BaseActionResponse<IEnumerable<AssetTypeRowModel>>> GetAll()

@@ -3,8 +3,8 @@ namespace assms.api.Controllers.V_1;
 [ApiController]
 [ApiVersion(1)]
 [Route("api/v{version:apiVersion}/[Controller]")]
-[Authorize(Policy = $"{nameof(UserRolesEnum.SystemAdmin)}")]
-public class InstitutionController(IInstitutionService institutionService) : ControllerBase
+//[Authorize(Policy = $"{nameof(UserRolesEnum.SystemAdmin)}")]
+public class InstitutionsController(IInstitutionService institutionService) : ControllerBase
 {
     [HttpGet]
     public async Task<BaseActionResponse<IEnumerable<InstitutionRowModel>>> GetAll()
@@ -19,6 +19,14 @@ public class InstitutionController(IInstitutionService institutionService) : Con
     {
         Log.Information("Querying Institution service by date", date);
         return await institutionService.GetAllByDateAsync(date);
+    }
+
+    [HttpGet]
+    [Route(ControllerConstants.GetByIdRoute)]
+    public async Task<BaseActionResponse<InstitutionRowModel>> GetById(Guid rowId)
+    {
+        Log.Information("Querying Institution service by rowId", rowId);
+        return await institutionService.GetByIdAsync(rowId);
     }
 
     [HttpPost]
