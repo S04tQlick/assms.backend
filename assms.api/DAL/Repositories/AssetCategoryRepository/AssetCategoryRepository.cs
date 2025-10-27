@@ -4,14 +4,14 @@ public class AssetCategoryRepository(IQueryHandler<AssetCategoryModel> queryHand
 {
     public async Task<IEnumerable<AssetCategoryRowModel>> GetAllAsync()
     {
-        var response = await queryHandler.GetAllAsync(
-            (AssetCategoryModel i) => i.Assets!
+        var response = await queryHandler.GetAllAsync((AssetCategoryModel i) => i.Assets!
         );
 
         return response.Select(x => new AssetCategoryRowModel
         {
-            AssetCategoryName= x.AssetCategoryName,
-            AssetTypeId= x.AssetTypeId,
+            Id = x.Id,
+            AssetCategoryName = x.AssetCategoryName,
+            AssetTypeId = x.AssetTypeId,
         }).ToList();
     }
 
@@ -24,8 +24,9 @@ public class AssetCategoryRepository(IQueryHandler<AssetCategoryModel> queryHand
 
         return response.Select(x => new AssetCategoryRowModel
         {
-            AssetCategoryName= x.AssetCategoryName,
-            AssetTypeId= x.AssetTypeId,
+            Id = x.Id,
+            AssetCategoryName = x.AssetCategoryName,
+            AssetTypeId = x.AssetTypeId,
         }).ToList();
     }
 

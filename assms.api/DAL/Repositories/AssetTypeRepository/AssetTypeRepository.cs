@@ -4,14 +4,13 @@ public class AssetTypeRepository(IQueryHandler<AssetTypeModel> queryHandler) : I
 {
     public async Task<IEnumerable<AssetTypeRowModel>> GetAllAsync()
     {
-        var response = await queryHandler.GetAllAsync(
-            (AssetTypeModel i) => i.Assets!
+        var response = await queryHandler.GetAllAsync((AssetTypeModel i) => i.Assets!
         );
 
         return response.Select(x => new AssetTypeRowModel
         {
-            Id= x.Id,
-            AssetTypeName= x.AssetTypeName,
+            Id = x.Id,
+            AssetTypeName = x.AssetTypeName,
         }).ToList();
     }
 
