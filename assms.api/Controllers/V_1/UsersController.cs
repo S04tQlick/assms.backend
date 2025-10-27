@@ -4,7 +4,7 @@ namespace assms.api.Controllers.V_1;
 [ApiVersion(1)]
 [Route("api/v{version:apiVersion}/[controller]")]
 
-[Authorize(Policy = $"{nameof(UserRolesEnum.SystemAdmin)},{nameof(UserRolesEnum.BranchAdmin)}")]
+//[Authorize(Policy = $"{nameof(UserRolesEnum.SystemAdmin)},{nameof(UserRolesEnum.BranchAdmin)}")]
 public class UsersController (IUserService userService) : ControllerBase
 {
     // [HttpGet]

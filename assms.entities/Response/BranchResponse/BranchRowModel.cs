@@ -2,7 +2,7 @@ using assms.entities.Models;
 
 namespace assms.entities.Response.BranchResponse;
 
-public class BranchRowModel : BaseModel
+public class BranchRowModel : GeoBaseModel
 {
     public required string Name { get; set; }
     public required string Country { get; set; }

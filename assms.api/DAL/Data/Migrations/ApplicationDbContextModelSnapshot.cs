@@ -292,12 +292,21 @@ namespace assms.api.DAL.Data.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("boolean");
 
+                    b.Property<string>("LogoUrl")
+                        .HasColumnType("text");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Region")
                         .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("SanityAssetId")
+                        .HasColumnType("text");
+
+                    b.Property<string>("SanityMimeType")
                         .HasColumnType("text");
 
                     b.Property<DateTime?>("SubscriptionExpiresAt")

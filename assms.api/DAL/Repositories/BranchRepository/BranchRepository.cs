@@ -20,6 +20,8 @@ public class BranchRepository(IQueryHandler<BranchModel> queryHandler) : IBranch
             Address = x.Address,
             InstitutionId = x.InstitutionId,
             IsActive = x.IsActive,
+            Latitude = x.Latitude,
+            Longitude = x.Longitude,
             CreatedAt = x.CreatedAt,
             UpdatedAt = x.UpdatedAt,
         }).ToList();
@@ -38,6 +40,8 @@ public class BranchRepository(IQueryHandler<BranchModel> queryHandler) : IBranch
             Address = x.Address,
             InstitutionId = x.InstitutionId,
             IsActive = x.IsActive,
+            Latitude = x.Latitude,
+            Longitude = x.Longitude,
             CreatedAt =   x.CreatedAt,
             UpdatedAt =   x.UpdatedAt,
         });

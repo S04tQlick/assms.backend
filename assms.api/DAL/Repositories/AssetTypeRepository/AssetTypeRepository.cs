@@ -10,7 +10,7 @@ public class AssetTypeRepository(IQueryHandler<AssetTypeModel> queryHandler) : I
 
         return response.Select(x => new AssetTypeRowModel
         {
-            AssetTypeId= x.Id,
+            Id= x.Id,
             AssetTypeName= x.AssetTypeName,
         }).ToList();
     }
@@ -24,7 +24,7 @@ public class AssetTypeRepository(IQueryHandler<AssetTypeModel> queryHandler) : I
 
         return response.Select(x => new AssetTypeRowModel
         {
-            AssetTypeId= x.Id,
+            Id= x.Id,
             AssetTypeName= x.AssetTypeName,
         }).ToList();
     }
@@ -38,7 +38,6 @@ public class AssetTypeRepository(IQueryHandler<AssetTypeModel> queryHandler) : I
 
         return new AssetTypeResponse
         {
-            AssetTypeId = row.Id,
             AssetTypeName = row.AssetTypeName,
         };
     }

@@ -3,7 +3,7 @@ namespace assms.api.Controllers.V_1;
 [ApiController]
 [ApiVersion(1)]
 [Route("api/v{version:apiVersion}/[Controller]")]
-[Authorize(Policy = $"{nameof(UserRolesEnum.SystemAdmin)}")]
+//[Authorize(Policy = $"{nameof(UserRolesEnum.SystemAdmin)}")]
 public class AssetCategoriesController(IAssetCategoryService assetCategoryService) : ControllerBase
 {
     [HttpGet]
