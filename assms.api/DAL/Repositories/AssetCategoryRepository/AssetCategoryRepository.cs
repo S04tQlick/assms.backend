@@ -82,36 +82,3 @@ public class AssetCategoryRepository(IQueryHandler<AssetCategoryModel> queryHand
     private async Task<AssetCategoryModel?> GetRowDataAsync(Guid rowId) =>
         await queryHandler.GetByIdAsync(rowId);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
