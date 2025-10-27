@@ -10,8 +10,8 @@ public class AssetCategoryRepository(IQueryHandler<AssetCategoryModel> queryHand
 
         return response.Select(x => new AssetCategoryRowModel
         {
-            AssetTypeId= x.AssetTypeId,
             AssetCategoryName= x.AssetCategoryName,
+            AssetTypeId= x.AssetTypeId,
         }).ToList();
     }
 
@@ -24,8 +24,8 @@ public class AssetCategoryRepository(IQueryHandler<AssetCategoryModel> queryHand
 
         return response.Select(x => new AssetCategoryRowModel
         {
-            AssetTypeId= x.AssetTypeId,
             AssetCategoryName= x.AssetCategoryName,
+            AssetTypeId= x.AssetTypeId,
         }).ToList();
     }
 
