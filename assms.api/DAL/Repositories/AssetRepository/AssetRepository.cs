@@ -14,7 +14,7 @@ public class AssetRepository(IQueryHandler<AssetModel> queryHandler) : IAssetRep
 
         return response.Select(x => new AssetRowModel
         {
-            AssetId = x.Id,
+            Id = x.Id,
             AssetName = x.AssetName,
             PurchaseDate = x.PurchaseDate,
             PurchasePrice = x.PurchasePrice,
@@ -59,7 +59,7 @@ public class AssetRepository(IQueryHandler<AssetModel> queryHandler) : IAssetRep
 
         return response.Select(x => new AssetRowModel
         {
-            AssetId = x.Id,
+            Id = x.Id,
             AssetName = x.AssetName,
             PurchaseDate = x.PurchaseDate,
             PurchasePrice = x.PurchasePrice,
@@ -99,7 +99,6 @@ public class AssetRepository(IQueryHandler<AssetModel> queryHandler) : IAssetRep
 
         return new AssetResponse
         {
-            AssetId = row.Id,
             AssetName = row.AssetName,
             PurchaseDate = row.PurchaseDate,
             PurchasePrice = row.PurchasePrice,
