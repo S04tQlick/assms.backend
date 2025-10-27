@@ -2,11 +2,6 @@ namespace assms.entities.Response.AssetResponse;
 
 public class AssetResponse
 {
-    //public Guid InstitutionId { get; set; }
-    //public Guid BranchId { get; set; }
-    
-    
-    public Guid AssetId { get; set; }
     public required string AssetName { get; set; }
     public Guid AssetTypeId { get; set; }
     public Guid AssetCategoryId { get; set; }
