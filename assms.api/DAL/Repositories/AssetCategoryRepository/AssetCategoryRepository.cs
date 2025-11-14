@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Http.HttpResults;
+
 namespace assms.api.DAL.Repositories.AssetCategoryRepository;
 
 public class AssetCategoryRepository(IQueryHandler<AssetCategoryModel> queryHandler) : IAssetCategoryRepository
@@ -50,9 +52,9 @@ public class AssetCategoryRepository(IQueryHandler<AssetCategoryModel> queryHand
         var exists = await queryHandler.ExistsAsync(e =>
             EF.Functions.ILike(e.AssetCategoryName, request.AssetCategoryName) &&
             EF.Functions.ILike(e.AssetTypeId.ToString(), request.AssetTypeId.ToString()));
-
+        
         if (exists)
-            throw new Exception("AssetCategory already exists.");
+            throw new Exception(MessageConstants.AlreadyExistRecord);
 
         return await queryHandler.CreateAsync(new AssetCategoryModel
         {
@@ -67,7 +69,14 @@ public class AssetCategoryRepository(IQueryHandler<AssetCategoryModel> queryHand
     {
         var row = await GetRowDataAsync(request.Id);
         if (row is null)
-            throw new Exception(MessageConstants.NotFoundRecord);
+            throw new InvalidOperationException(MessageConstants.NotFoundRecord);
+        
+        var exists = await queryHandler.ExistsAsync(e =>
+            EF.Functions.ILike(e.AssetCategoryName, request.AssetCategoryName) &&
+            EF.Functions.ILike(e.AssetTypeId.ToString(), request.AssetTypeId.ToString()));
+        
+        if (exists)
+            throw new InvalidOperationException(MessageConstants.AlreadyExistRecord);
 
         row.AssetCategoryName = request.AssetCategoryName;
         row.AssetTypeId = request.AssetTypeId;

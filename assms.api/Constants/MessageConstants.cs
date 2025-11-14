@@ -6,6 +6,8 @@ public static class MessageConstants
 
     public const string InvalidRequest = "The request is invalid.";
 
+    public const string AlreadyExistRecord = "The record already exists.";
+
     public static string UnexpectedError =>
         "We apologize, but an unforeseen error prevented us from completing this. Please try again later.";
     
