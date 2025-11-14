@@ -25,7 +25,7 @@ public class InstitutionService (IInstitutionRepository institutionRepository ):
 
         return new BaseActionResponse<InstitutionRowModel>
         {
-            Message = MessageConstants.Success(RecordTypeEnum.GetAllByDate),
+            Message = MessageConstants.Success(RecordTypeEnum.GetById),
             Data = response,
             BranchCount = response.BranchCount
         };

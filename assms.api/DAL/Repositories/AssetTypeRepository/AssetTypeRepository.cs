@@ -14,6 +14,22 @@ public class AssetTypeRepository(IQueryHandler<AssetTypeModel> queryHandler) : I
         }).ToList();
     }
 
+    public async Task<AssetTypeRowModel> GetByIdAsync(Guid id)
+    {
+        var response = await queryHandler.GetByIdAsync(id,
+            (AssetTypeModel i) => i.Assets!
+        );
+
+        if (response is null)
+            throw new KeyNotFoundException(MessageConstants.NotFoundRecord);
+
+        return new AssetTypeRowModel
+        {
+            Id= response.Id,
+            AssetTypeName= response.AssetTypeName,
+        };
+    }
+
     public async Task<IEnumerable<AssetTypeRowModel>> GetAllByDateAsync(DateTime date)
     {
         var response = await queryHandler.GetAllByDateAsync(

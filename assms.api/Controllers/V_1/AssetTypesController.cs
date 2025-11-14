@@ -14,6 +14,14 @@ public class AssetTypesController(IAssetTypeService assetTypeService) : Controll
     }
 
     [HttpGet]
+    [Route(ControllerConstants.GetByIdRoute)]
+    public async Task<BaseActionResponse<AssetTypeRowModel>> GetById(Guid rowId)
+    {
+        Log.Information("Querying Institution service by rowId", rowId);
+        return await assetTypeService.GetByIdAsync(rowId);
+    }
+
+    [HttpGet]
     [Route(ControllerConstants.GetByDateRoute)]
     public async Task<BaseActionResponse<IEnumerable<AssetTypeRowModel>>> GetByDate(DateTime date)
     {

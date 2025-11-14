@@ -43,7 +43,7 @@ public class GlobalExceptionHandler : IMiddleware
         await context.Response.WriteAsJsonAsync(new ProblemDetails
         {
             Status = status,
-            Detail = SetExceptionMessage(status)
+            Detail = SetExceptionMessage(status, exception.Message)
         });
     }
 

@@ -15,6 +15,18 @@ public class AssetTypeService(IAssetTypeRepository assetTypeRepository) : IAsset
         };
     }
 
+    public async Task<BaseActionResponse<AssetTypeRowModel>> GetByIdAsync(Guid id)
+    {
+        var response = await assetTypeRepository.GetByIdAsync(id);
+        Log.Information("Queried for records by {id}.", id);
+
+        return new BaseActionResponse<AssetTypeRowModel>
+        {
+            Message = MessageConstants.Success(RecordTypeEnum.GetById),
+            Data = response,
+        };
+    }
+
     public async Task<BaseActionResponse<IEnumerable<AssetTypeRowModel>>> GetAllByDateAsync(DateTime date)
     {
         var utcDate = DateTime.SpecifyKind(date.Date, DateTimeKind.Utc);
