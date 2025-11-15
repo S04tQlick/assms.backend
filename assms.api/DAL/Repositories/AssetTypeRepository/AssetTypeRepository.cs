@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Http.HttpResults;
+
 namespace assms.api.DAL.Repositories.AssetTypeRepository;
 
 public class AssetTypeRepository(IQueryHandler<AssetTypeModel> queryHandler) : IAssetTypeRepository
@@ -63,7 +65,7 @@ public class AssetTypeRepository(IQueryHandler<AssetTypeModel> queryHandler) : I
             EF.Functions.ILike(e.AssetTypeName, request.AssetTypeName));
 
         if (exists)
-            throw new Exception("AssetType already exists.");
+            throw new DuplicateException("Asset type already exists.");
 
         return await queryHandler.CreateAsync(new AssetTypeModel
         {
